@@ -56,5 +56,60 @@
         当 $V_1 = V_0$ , 则直接考虑 $V_2$ 与 $V_1$ , 以完全相同的办法可以找到 $u_2$ 构成 $V_2$ 的一组正交基.
 
         对所有的 $V_n$ 重复这样的操作, 可以到的 $H$ 的一组正交基 $\{u_1, u_2, \cdots, u_k, \cdots \}\bigcup\{e_1, e_2, \cdots, e_n, \cdots \}$ , 显然它是包含 $\{e_1, e_2, \cdots, e_n, \cdots \}$ 的.
+    
+    \paragraph{6.1}\quad\\
+        \noindent(1)\quad 充分性: 当 $\lambda_i \rightarrow 0$ , 则对 $\forall \epsilon > 0$ , $\exists N > 0$ , $\text{s.t. } \forall n > N$ , $\lambda_i < \epsilon$.
+        设$T_n(x) = (\lambda_1 x_1, \cdots, \lambda_n x_n, 0, 0, \cdots)$ ,
+        当 $n > N$ ,
+        \[\Vert{T-T_n}\Vert = \sum^{\infty}_{i = n + 1}\lambda_i^2 x_i^2 \le \epsilon^2 \sum^{\infty}_{i = n + 1}\lambda_i^2 x_i^2 \le \epsilon^2 \Vert{x}\Vert \le \epsilon\]
+        即 $T_n \rightarrow T$ , 显然 $T_n$ 是连续的, 则 $T$ 是紧算子.\\
+
+        \noindent(2)\quad必要性: 当 $T$ 是紧算子, 假设 $\lambda_i \rightarrow 0$ 不成立, 则当 $n$ 充分大, $\exists a > 0$ , $\text{s.t. } \vert{\lambda_n}\vert > a$ . 
+        取序列 $x_n = (\underbrace{1, \cdots, 1}_{n\text{个}1}, 0, 0, \cdots)$ , 则当 $i, j$ 充分大, $\Vert{T x_i - T x_j}\Vert > a^2$ , 则 $T x_n$ 不可能存在收敛子列, 于 $T$ 是紧算子矛盾, 故必然有 $\lambda_i \rightarrow 0$.\\
+
+    
+    \paragraph{6.2}\quad\\
+        \noindent(1)\quad 设 $T u_n$ 是 $T(B_E)$ 中的一个收敛列, $T u_n \rightarrow T u$ , $u_n \subset B_E$ , 要证 $T(B_E)$ 是闭的, 则要证 $u \subset B_E$ .
+        $E$ 是自反的, 则 $B_E$ 是弱紧的, $\exists u^* \subset B_E$ , $u_n \rightharpoonup u^*$ . $\forall v \subset F^*$ , 有 
+        \[\langle{u_n},{T^* v}\rangle \rightarrow \langle{u^*},{T^* v}\rangle
+        \quad \Leftrightarrow \quad
+        \langle{T u_n},{v}\rangle \rightarrow \langle{T u^*},{v}\rangle\]
+        则 $T u_n \rightharpoonup T u^*$ , 但同时由 $T u_n$ 的强收敛性可知 $T u_n \rightharpoonup T u$ , 那么 $u = u^* \subset B_E$ , 故 $T(B_E)$ 是闭的\\
+
+        \noindent(2)\quad $T$ 是紧算子, 则 $\overline{T(B_E)}$ 是紧的, 而 $T(B_E)$ 是闭的, 则 $T(B_E) = \overline{T(B_E)}$ 是紧的\\
+
+        \noindent(3)\quad 先说明 $T$ 是紧算子. 设 $G_n : C([0, 1]) \rightarrow C([0, 1])$ 是把连续函数变成分段线性函数的泛函, 即 
+        \[
+            G_n u(t) = [u(\frac{i}{n}) - u(\frac{i - 1}{n})] \cdot n(t - \frac{i - 1}{n}) + u(\frac{i - 1}{n}) ,\quad t \in [\frac{i - 1}{n}, \frac{i}{n}], \quad i = \{1, \cdots ,n\}
+        \]
+        再定义 $T_n = T \circ G_n$ , 显然 $T$ 和 $G_n$ 都是连续的, 则 $T_n$ 也是连续的, 易证明 $T_n \rightarrow T$ , 则 $T$ 是紧算子.\\
+
+        再说明 $T(B_E)$ 不是闭的. 设 $u_n \in C([0, 1])$ 
+        \[
+            u_n(t) = 
+            \begin{cases}
+                0, &\text{ if } 0 \le t \le \frac{1}{2}\\
+                n(t - \frac{1}{2}), &\text{ if } \frac{1}{2} \le t \le \frac{1}{2} + \frac{1}{n}\\
+                1, &\text{ if } \frac{1}{2} + \frac{1}{n} \le t \le 1
+            \end{cases}
+        \]
+        已知 $T u_n \rightarrow f$ , 其中 
+        \[
+            f(t) = 
+            \begin{cases}
+                0, &\text{ if } 0 \le t \le \frac{1}{2}\\
+                t - \frac{1}{2}, &\text{ if } \frac{1}{2} \le t \le 1
+            \end{cases}
+        \]
+        $f$ 在 $1/2$ 处不可导, 故 $f \notin T(B_E)$ .\\
+
+    \paragraph{6.8}\quad\\
+        \noindent(1)\quad 把 $T : E \rightarrow F$ 看作映射 $T : E \rightarrow R(T)$ , 则 $T$ 是满射, 由开映射定理, $\exists \alpha > 0$ , $\text{s.t. } \alpha B_F \subset T(B_E)$ .
+        因为 $T$ 是紧算子, 则 $\overline{T(B_E)}$ 是 $F$ 中紧集, 而 $R(T)$ 是$F$ 中闭集, 则 则 $\overline{T(B_E)}$ 是 $R(T)$ 中紧集.
+        $\alpha B_F$ 是 $\overline{T(B_E)}$ 的闭子集, 因此是 $R(T)$ 中紧集, 那么 $B_F$ 是 $R(T)$ 中紧集, 故 $R(T)$ 是有限维的.\\
+
+        \noindent(1)\quad 满射 $T : E \rightarrow R(T)$ 诱导了商映射 $\tilde{T} : E / N(T) \rightarrow R(T)$ , 商映射 $\tilde{T}$ 是一个单射, 因而是个双射 . 这说明了 $E / N(T)$ 与 $R(T)$ 是等势的. 
+        
+        当 $\dim N(T) < \infty$ , 假设 $\dim E = \infty$ , 则 $\dim E / N(T) = \infty$ , 这与 $R(T)$ 是有限维的矛盾, 故 $\dim E < \infty$.
 
 \end{document}
