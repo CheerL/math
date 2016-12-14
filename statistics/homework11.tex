@@ -1,17 +1,79 @@
-\documentclass[UTF-8]{ctexart}
+\documentclass[UTF8]{ctexart}
 %\documentclass{article}
 
 \title{数理统计第11次作业}
 \author{林陈冉}
 \date{\today}
-\usepackage{geometry}
+
 \usepackage{amsmath}
 \usepackage{amssymb}
-
-\geometry{papersize={21cm,29.7cm}}
-\geometry{left=1.91cm,right=1.91cm,top=2.54cm,bottom=2.54cm}
+\usepackage{geometry}
+    \geometry{papersize={21cm,29.7cm}}
+    \geometry{left=1.91cm,right=1.91cm,top=2.54cm,bottom=2.54cm}
 
 \begin{document}
-\maketitle
+    \maketitle
+    \paragraph{6.1}\quad\\
+        \noindent(1) 记第 $i$ 块第上甲品种产量为 $X_i$ , 乙品种产量为 $Y_i$ , $Z_i=X_i-Y_i$ , 由题意可知 $Z_i\sim N(\mu, \sigma^2)$ , $i=1, \cdots, n$ , $n=8$ . 检验问题
+        \[H_0:\mu \le 0 \leftrightarrow H_1:\mu > 0\]
+        $\sigma^2$ 未知, 则否定域为 
+        \[D=\{Z|T=\frac{\sqrt{n}(\bar{Z}-\mu_0)}{S}<t_{n-1}(\alpha)\}\]
+        均值 $\bar{Z}=17.375$ , 方差 $S=21.2733$ , $\alpha=0.05$ , $t_{7}(0.05)=1.8946$ , 检验统计量 $T=\sqrt{8}\bar{Z}/S=2.31012$ ,
+        落入接受域, 故认为甲是对乙的改良.\\
 
+        \noindent(2) 符号检验: 检验问题
+        \[H_0 : \text{甲不是对乙的改良} \leftrightarrow H_1 : \text{甲是对乙的改良}\]
+        否定域为
+        \[D=\{n_+ \ge c \text{ 或 } n_+ \le d\}\]
+        由 $Z = \{58, 32, 30, 5, -7, 11, 0, 10\}$ , 则 $n_+ = 6$ ,$n = 7$ , 当 $\alpha = 0.05$ , $c = 7$ , $d = 0$ ,
+        落入接受域, 故认为甲不是对乙的改良\\
+
+        \noindent符号秩和检验: 检验问题
+        \[H_0 : \text{甲不是对乙的改良} \leftrightarrow H_1 : \text{甲是对乙的改良}\]
+        否定域为
+        \[D=\{W^+ \ge c \text{ 或 } W^+ \le d\}\]
+        由 $Z = \{58, 32, 30, 5, -7, 11, 0, 10\}$ , 则 $W^+ = 26$ ,$n = 7$ , 当 $\alpha = 0.05$ , $c = 25$ , $d = 3$ ,
+        落否定域, 故认为甲是对乙的改良\\
+     
+     \paragraph{6.3}\quad\\
+        \noindent(1) 记实验号为 $i$ 的猪吃新饲料增重为 $X_i$ , 吃旧饲料的增重为 $Y_i$ , $Z_i=X_i-Y_i$ , $Z=\{5,-2,0,4,2,-1,3,7,-6\}$.
+
+        \noindent符号检验: 检验问题
+        \[H_0 : \text{新饲料催肥效果没有变好} \leftrightarrow H_1 : \text{新饲料催肥效果变好}\]
+        否定域为
+        \[D=\{n_+ \ge c \text{ 或 } n_+ \le d\}\]
+        可知 $n_+ = 5$ ,$n = 8$ , 当 $\alpha = 0.10$ , $c = 7$ , $d = 1$ ,
+        落入接受域, 故认为新饲料催肥效果没有变好, 不能推广.\\
+
+        \noindent符号秩和检验: 检验问题
+        \[H_0 : \text{新饲料催肥效果没有变好} \leftrightarrow H_1 : \text{新饲料催肥效果变好}\]
+        否定域为
+        \[D=\{W^+ \ge c \text{ 或 } W^+ \le d\}\]
+        可知 $W^+ = 25.5$ , $n = 8$ , 当 $\alpha = 0.10$ , $c = 25$ , $d = 11$ ,
+        落否定域, 故认为新饲料催肥效果变好, 可以推广\\
+    
+    \paragraph{6.4}\quad\\
+        \noindent检验问题
+         \[H_0 : \text{两厂显像管平均寿命相同} \leftrightarrow H_1 : \text{两厂显像管平均寿命不同}\]
+         否定域为
+        \[D=\{(X,Y)|W \ge c \text{ 或 } W \le d\}\]
+        $m = 8$ , $n = 10$ , $\alpha = 0.10$ , 查表得 $c = 92$ , $d = 60$ , 经计算, $W = 116.5$ , 落入否定域, 故认为两厂显像管寿命不同.\\
+    
+    \paragraph{6.7}\quad\\
+        \noindent检验问题
+        \[H_0 : \text{骰子是均匀的} \leftrightarrow H_1 : \text{骰子不是均匀的}\]
+        可知 $n = 300$ , $\alpha = 0.05$ , 理论分布 $p_i = P(X = i) = 1/6$ , $n p_i = 50$ , 观察频数 $\nu = \{43, 49, 56, 45, 66, 41\}$ , 经计算 $k_0 = \sum^{6}_{i = 1}\frac{(\nu_i - n p_i)^2}{n p_i} = 8.96$ .
+        由 $K_n \sim \chi^2_5$ , 拟合优度 
+        \[p(k_0) = P(K_n \ge k_0 | H_0) \approx P(\chi^2_5 \ge k_0) < 0.10 \]
+        故可以认为骰子是均匀的.\\
+    
+    \paragraph{6.8}\quad\\
+        \noindent检验问题
+        \[H_0 : \text{结果符合遗传学模型} \leftrightarrow H_1 : \text{结果不符合遗传学模型}\]
+        可知 $n = 64$ , $\alpha = 0.05$ , 理论分布 $p_1 = 9/16$ , $p_2 = 3/16$ , $p_3 = 1/4$ , 观察频数 $\nu_1 = 34$ , $\nu_2 = 10$ , $\nu_3 = 20$ , 经计算 $k_0 = \sum^{3}_{i = 1}\frac{(\nu_i - n p_i)^2}{n p_i} = 1.444$ .
+        由 $K_n \sim \chi^2_2$ , 拟合优度 
+        \[p(k_0) = P(K_n \ge k_0 | H_0) \approx P(\chi^2_2 \ge k_0) < 0.25 \]
+        故可以认为实验结果符合"9:3:4"的遗传学模型.\\
+
+    
 \end{document}
