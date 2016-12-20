@@ -1,4 +1,4 @@
-\documentclass[UTF8]{ctexart}
+\documentclass[a4paper, UTF8]{ctexart}
 %\documentclass{article}
 
 \title{数理统计第11次作业}
@@ -8,9 +8,16 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{geometry}
-    \geometry{papersize={21cm,29.7cm}}
-    \geometry{left=1.91cm,right=1.91cm,top=2.54cm,bottom=2.54cm}
-
+    \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+\usepackage{fancyhdr}
+    \pagestyle{fancy}
+    %\lfoot{\today}   							%左页脚
+    \cfoot{\thepage}
+                    %中页脚
+    %\rfoot{林陈冉}	 						 %右页脚
+    \setlength{\parskip}{0.5 \baselineskip}		%段距
+    
 \begin{document}
     \maketitle
     \paragraph{6.1}\quad\\

@@ -1,0 +1,161 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}
+                        %中页脚
+        %\rfoot{林陈冉}	 						 %右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{multirow}
+    \usepackage{tikz}
+
+%---------------------------标题设置----------------------------
+    \title{数理统计第12次作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{6.8}
+        检验问题
+        \[H_0 : \text{射击结果服从二项分布} \leftrightarrow H_1 : \text{射击结果不服从二项分布}\]
+        修改表格为
+        \begin{table}[!hbp]
+            \centering
+            \begin{tabular}{c c c c c c c c}
+                \hline
+                    \text{命中数} & 0-2 & 3 & 4 & 5 & 6 & 7 & 8-10\\
+                \hline
+                    \text{靶数}   & 6 & 10 & 22 & 26 & 18 & 12 & 6\\
+                \hline
+            \end{tabular}    
+        \end{table}
+        
+        可知 $n = 100$ , $\alpha = 0.05$ . 设击中的概率为 $p$ , 每个靶上命中的子弹数目 $X_i$ 服从 $B(10, p)$ 的二项分布 , 其最大似然解 $p^* = \bar{X} /10 = 0.6$ , 则认为检验问题 $H_0$ 为射击结果服从 $B(10,6)$ 的二项分布.
+        
+        理论分布 $p_1 = P\{X = 0, 1 ,2\}  = 0.012$ , $p_2 = P\{X = 3\}  = 0.042$ , $p_3 = P\{X = 4\}  = 0.114$ , $p_4 = P\{X = 5\}  =0.201$ , $p_5 = P\{X = 6\}  =0.251$ , $p_6 = P\{X = 7\}  = 0.215$ , $p_7 = P\{X = 8, 9, 10\}  = 0.167$ , 观察频数 $\nu_1 = 6$ , $\nu_2 = 10$ , $\nu_3 = 22$ , $\nu_4 = 26$ , $\nu_5 = 18$ , $\nu_6 = 12$ , $\nu_7 = 6$ , 经计算 $k^*_0 = \sum^{7}_{i = 1}\frac{(\nu_i - n p_i)^2}{n p_i} = 51.702$ .
+        
+        $r = 7$ , $s = 1$ , 则 $K^*_n \sim \chi^2_5$ , 拟合优度 
+        \[p(k^*_0) = P(K^*_n \ge k^*_0 | H_0) \approx P(\chi^2_5 \ge k^*_0) < 0.005 < \alpha \]
+        故可以认为射击结果不服从二项分布.\\
+
+    \paragraph{6.11}
+        检验问题
+        \[H_0 : \text{每天事故数服从Poisson分布} \leftrightarrow H_1 : \text{每天事故数不服从Poisson分布}\]
+        修改表格为
+        \begin{table}[!hbp]
+            \centering
+            \begin{tabular}{c c c c c c}
+                \hline
+                    \text{事故数} & 0 & 1 & 2 & 3-4 & $\ge5$\\
+                \hline
+                    \text{天数}   & 109 & 65 & 22 & 7 & 7\\
+                \hline
+            \end{tabular}    
+        \end{table}
+        
+        可知 $n = 210$ , $\alpha = 0.05$ . 设Poisson的参数为 $\lambda$ , 每天的事故数目 $X_i$ 服从 $P(\lambda)$ , 其最大似然解 $\lambda^* = \sum^{210}_{i = 1}X_i / 210 = 0.804$ , 则认为检验问题 $H_0$ 每天事故数服从 $P(0.804)$ .
+        
+        理论分布 $p_1 = P\{X = 0\}  = 0.447$ , $p_2 = P\{X = 1\}  = 0.359$ , $p_3 = P\{X = 2, 3\}  = 0.144$ , $p_4 = P\{X = 4\}  =0.0466$ , $p_5 = P\{X \ge 5\}  =0.0014$ , 观察频数 $\nu_1 = 109$ , $\nu_2 = 65$ , $\nu_3 = 22$ , $\nu_4 = 7$ , $\nu_5 = 7$ , 经计算 $k^*_0 = \sum^{5}_{i = 1}\frac{(\nu_i - n p_i)^2}{n p_i} = 154.45$ .
+        
+        $r = 5$ , $s = 1$ , 则 $K^*_n \sim \chi^2_4$ , 拟合优度 
+        \[p(k^*_0) = P(K^*_n \ge k^*_0 | H_0) \approx P(\chi^2_5 \ge k^*_0) < 0.005 < \alpha \]
+        故可以认为每天事故数不服从Poisson分布.\\
+
+    \paragraph{6.14}
+        检验问题
+        \[H_0 : \text{电容量服从正态分布} \leftrightarrow H_1 : \text{电容量不服从正态分布}\]
+        修改表格为
+        \begin{table}[!hbp]
+            \centering
+            \begin{tabular}{c c c c c c c}
+                \hline
+                    \text{电容量} & $-\infty$-103.5 & 103.5-105.5 & 105.5-106.5 & 106.5-107.5 & 107.5-108.5\\
+                \hline
+                    \text{个数} & 6 & 10 & 16 & 13 & 17\\
+                \hline
+                    \text{电容量} & 108.5-109.5 & 109.5-110.5 & 110.5-111.5 & 111.5-$\infty$\\
+                \hline
+                    \text{个数} & 11 & 9 & 10 & 8\\
+                \hline
+            \end{tabular}    
+        \end{table}
+        
+        可知 $n = 100$ , $\alpha = 0.05$ . 设正态分布的参数为 $\mu, \sigma^2$ , 电量 $X$ 服从 $N(\mu, \sigma^2)$ , 其最大似然解 $\mu^* = \bar{X} = 107.85$ , ${\sigma^*}^2 = 7.0275$ 则认为检验问题 $H_0$ 电容量服从 $N(107.85, 7.0275)$ .
+        
+        理论分布 $p_1 = 0.0504$ , $p_2 = 0.137$ , $p_3 = 0.117$ , $p_4 = 0.142$ , $p_5 = 0.149$ , $p_6 = 0.136$ , $p_7 = 0.108$ , $p_8 = 0.0744$ , $p_9 = 0.0842$ , 观察频数 $\nu_1 = 6$ , $\nu_2 = 10$ , $\nu_3 = 16$ , $\nu_4 = 13$ , $\nu_5 = 17$ , $\mu_6 = 11$ ,$\mu_7 = 9$ , $\mu_8 = 10$ , $\mu_9 = 8$ , 经计算 $k^*_0 = \sum^{9}_{i = 1}\frac{(\nu_i - n p_i)^2}{n p_i} = 4.82$ .
+        
+        $r = 9$ , $s = 2$ , 则 $K^*_n \sim \chi^2_6$ , 拟合优度 
+        \[p(k^*_0) = P(K^*_n \ge k^*_0 | H_0) \approx P(\chi^2_6 \ge k^*_0)  > 0.25 > \alpha\]
+        故可以认为电容量服从正态分布.\\
+    
+        \newpage
+
+    \paragraph{6.16}
+        检验问题
+        \[H_0 : \text{慢性气管炎和吸烟无关} \leftrightarrow H_1 : \text{慢性气管炎和吸烟有关}\]
+        列连表为
+        \begin{table}[!hbp]
+            \centering
+            \begin{tabular}{c | c c c | c}
+                \hline
+                    \text{吸烟量/支/日} & 0-9 & 10-19 & $\ge 20$ & $\Sigma$\\
+                \hline
+                    \text{患者人数}   & 22 & 98 & 25 & 145\\
+                    \text{健康人数}   & 22 & 89 & 16 & 127\\
+                \hline
+                    $\Sigma$ & 44 & 187 & 41 & 272\\
+                \hline
+            \end{tabular}    
+        \end{table}
+
+        可知 $n = 272$ , $r = 2$ , $s = 3$ , $\alpha = 0.05$ , 查表 $\chi^2_{(r-1)(s-1)}(\alpha) = \chi^2_2(0.05) = 5.991$ , 检验统计量 
+        \[
+            K^*_n = n \Big(\sum^{r}_{i = 1} \sum^{s}_{j = 1}\frac{n_{ij}^2}{n_{i \cdot}n_{\cdot j}} - 1 \Big) = 1.223 < 5.991
+        \]
+        故认为慢性气管炎和吸烟无关.
+
+    \paragraph{6.17}
+        检验问题
+        \[H_0 : \text{处理前后比例相等} \leftrightarrow H_1 : \text{处理前后比例不相等}\]
+        列连表为
+        \begin{table}[!hbp]
+            \centering
+            \begin{tabular}{c | c c c | c}
+                \hline
+                    \text{健康状况}  & \text{未感冒} & \text{感冒一次} & \text{感冒两次以上} & $\Sigma$\\
+                \hline
+                    \text{处理}   & 252 & 145 & 103 & 500\\
+                    \text{未处理}   & 224 & 136 & 140 & 500\\
+                \hline
+                    $\Sigma$ & 476 & 281 & 243 & 1000\\
+                \hline
+            \end{tabular}    
+        \end{table}
+
+        可知 $n = 1000$ , $r = 2$ , $s = 3$ , $\alpha = 0.05$ , 查表 $\chi^2_{(r-1)(s-1)}(\alpha) = \chi^2_2(0.05) = 5.991$ , 检验统计量 
+        \[
+            K^*_n = n \Big(\sum^{r}_{i = 1} \sum^{s}_{j = 1}\frac{n_{ij}^2}{n_{i \cdot}n_{\cdot j}} - 1 \Big) = 7.569 >5.991
+        \]
+        故认为处理前后比例不相同.
+        
+\end{document}										%结束正文
