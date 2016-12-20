@@ -1,24 +1,38 @@
-\documentclass[a4paper, UTF8]{ctexart}
-%\documentclass{article}
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
 
-\title{数理统计第11次作业}
-\author{林陈冉}
-\date{\today}
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{geometry}
-    \geometry{left = 2.54cm, right = 2.54cm,
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
             top = 3.18cm, bottom = 3.18cm}			%页边距设置
-\usepackage{fancyhdr}
-    \pagestyle{fancy}
-    %\lfoot{\today}   							%左页脚
-    \cfoot{\thepage}
-                    %中页脚
-    %\rfoot{林陈冉}	 						 %右页脚
-    \setlength{\parskip}{0.5 \baselineskip}		%段距
-    
-\begin{document}
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}                            %中页脚
+        %\rfoot{林陈冉}	 						 %右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{multirow}
+    \usepackage{tikz}
+
+%---------------------------标题设置----------------------------
+    \title{数理统计第11次作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
     \maketitle
     \paragraph{6.1}\quad\\
         \noindent(1) 记第 $i$ 块第上甲品种产量为 $X_i$ , 乙品种产量为 $Y_i$ , $Z_i=X_i-Y_i$ , 由题意可知 $Z_i\sim N(\mu, \sigma^2)$ , $i=1, \cdots, n$ , $n=8$ . 检验问题
@@ -39,10 +53,10 @@
         \[H_0 : \text{甲不是对乙的改良} \leftrightarrow H_1 : \text{甲是对乙的改良}\]
         否定域为
         \[D=\{W^+ \ge c \text{ 或 } W^+ \le d\}\]
-        由 $Z = \{58, 32, 30, 5, -7, 11, 0, 10\}$ , 则 $W^+ = 26$ ,$n = 7$ , 当 $\alpha = 0.05$ , $c = 25$ , $d = 3$ ,
+        由 $Z = \{58, 32, 30, 5, -7, 11, 0, 10\}$ , 则 $W^+ = 26$ ,$n = 7$ , 当 $\alpha = 0.05$ , $c = 26$ , $d = 2$ ,
         落否定域, 故认为甲是对乙的改良\\
      
-     \paragraph{6.3}\quad\\
+    \paragraph{6.3}\quad\\
         \noindent(1) 记实验号为 $i$ 的猪吃新饲料增重为 $X_i$ , 吃旧饲料的增重为 $Y_i$ , $Z_i=X_i-Y_i$ , $Z=\{5,-2,0,4,2,-1,3,7,-6\}$.
 
         \noindent符号检验法: 检验问题
@@ -55,16 +69,16 @@
         \noindent(2) 符号秩和检验法: 检验问题
         \[H_0 : \text{新饲料催肥效果没有变好} \leftrightarrow H_1 : \text{新饲料催肥效果变好}\]
         否定域为
-        \[D=\{W^+ \ge c \text{ 或 } W^+ \le d\}\]
-        可知 $W^+ = 25.5$ , $n = 8$ , 当 $\alpha = 0.10$ , $c = 25$ , $d = 11$ ,
-        落否定域, 故认为新饲料催肥效果变好, 可以推广\\
+        \[D=\{W^+ \le d \text{ 或 } W^+ \ge c\}\]
+        可知 $W^+ = 25.5$ , $n = 8$ , 当 $\alpha = 0.10$ , $c = 31$ , $d = 5$ ,
+        落入接受域, 故认为新饲料催肥效果没有变好, 不可以推广.\\
     
     \paragraph{6.4}\quad\\
         \noindent检验问题
         \[H_0 : \text{两厂显像管平均寿命相同} \leftrightarrow H_1 : \text{两厂显像管平均寿命不同}\]
         否定域为
         \[D=\{(X,Y)|W \ge c \text{ 或 } W \le d\}\]
-        $m = 8$ , $n = 10$ , $\alpha = 0.10$ , 查表得 $c = 92$ , $d = 60$ , 经计算, $W = 116.5$ , 落入否定域, 故认为两厂显像管寿命不同.\\
+        $m = 8$ , $n = 10$ , $\alpha = 0.10$ , 查表得 $c = 96$ , $d = 56$ , 经计算, $W = 116.5$ , 落入否定域, 故认为两厂显像管寿命不同.\\
     
     \paragraph{6.7}\quad\\
         \noindent检验问题
@@ -79,7 +93,7 @@
         \[H_0 : \text{结果符合遗传学模型} \leftrightarrow H_1 : \text{结果不符合遗传学模型}\]
         可知 $n = 64$ , $\alpha = 0.05$ , 理论分布 $p_1 = 9/16$ , $p_2 = 3/16$ , $p_3 = 1/4$ , 观察频数 $\nu_1 = 34$ , $\nu_2 = 10$ , $\nu_3 = 20$ , 经计算 $k_0 = \sum^{3}_{i = 1}\frac{(\nu_i - n p_i)^2}{n p_i} = 1.444$ .
         由 $K_n \sim \chi^2_2$ , 拟合优度 
-        \[p(k_0) = P(K_n \ge k_0 | H_0) \approx P(\chi^2_2 \ge k_0) < 0.25 \]
+        \[p(k_0) = P(K_n \ge k_0 | H_0) \approx P(\chi^2_2 \ge k_0) > 0.25 > \alpha\]
         故可以认为实验结果符合"9:3:4"的遗传学模型.\\
 
     
