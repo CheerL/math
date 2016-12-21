@@ -118,26 +118,14 @@
 
         \noindent (2) \,当 $\lambda = 0$ , 由 $Tu(x) = T(u(x) + 1)$ 可知, $T - \lambda I$ 不是双射, 故 $0 \in \sigma(T)$. 但因为 $Tu(x) = \int^x_0 u(t)dt = 0$ 对任意 $x \in (0, 1)$ 成立, 则显然 $u(x) \equiv 0$ , 故$0 \notin EV(T)$ .
         
-        若 $Tu = \lambda u$ , 则对 $\forall y \in (0, 1)$ , $\int^y_0 Tu(x)dx = \int^y_0 \lambda u(x)dx$ , 即 
-        \[
-             \int^y_0 \int^x_0 u(t)dt dx = \int^y_0 \int^1_0 u(t)\chi_{[0,1]}(x-t)dt dx = \int^y_0 (y - t) u(t) dt = \int^y_0 \lambda u(x) dx
-        \]
-        故 
-        \[
-            \int^y_0 (y-t-\lambda) u(t) dt \equiv 0
-        \]
-        自然的, 其对 $y$ 的导数也恒为0 
-        \[
-            \frac{d \int^y_0 (y-t-\lambda) u(t) dt}{dy} = \int^y_0 u(t) dt - \lambda u(y) \equiv 0
-        \]
-        可以看出, 当 $y = 0$ , $u(0) = 0$ . 再次求导 
+        若 $\lambda \neq 0$ , 只要考虑 $Tu = \lambda u$ 是否存在非零解. 当 $x = 0$ , 可得 $\lambda u(0) = \int^0_0 u(t)dt dx = 0$ , 即 $u(0) = 0$ . 对原方程两边求导 
         \begin{equation*}
             \begin{split}
-                u(y) - \lambda u'(y) & \equiv 0\\
+                u(x) - \lambda & u'(x) = 0\\
                 u(0) & = 0
             \end{split}
         \end{equation*}
-        解该微分方程, 得 $u(y) = 0$ , 那么 $N(T - \lambda I) = \{0\}$ , $\lambda \notin EV(T)$.
+        解该微分方程, 得 $u(x) = 0$ , 那么 $N(T - \lambda I) = \{0\}$ , $\lambda \notin EV(T)$.
         
         综上, $EV(T) = \emptyset$ , $\sigma(T) = \{0\}$ .\\
 
@@ -150,7 +138,7 @@
         \end{equation*}
          求解该微分方程组, 得 
          \[
-             v(x) = -\frac{e^{x/2}}{\lambda} \int^x_0 g(t) e^{-t/2} dt
+             v(x) = -\frac{e^{x/2}}{\lambda} \int^x_0 f(t) e^{-t/2} dt
          \]
          那么 
          \[
