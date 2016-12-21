@@ -1,0 +1,171 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}							%中页脚
+        %\rfoot{林陈冉}	 						 		%右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{tikz}
+    \usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+    \title{泛函分析第17周作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{6.10}\quad\\
+        \noindent (1) \,$\forall u \in E$ , 成立以下关系
+        \begin{equation*}
+            \begin{split}
+                    \vert{Q(I)}\vert \Vert{u}\Vert
+                =   & \Vert{Q(I)u - Q(T)u + Q(T)u}\Vert\\
+                \le & \Vert{Q(I)u - Q(T)u}\Vert + \Vert{Q(T)u}\Vert\\
+                =   & \Vert{\tilde{Q}(T) (I - T)u}\Vert + \Vert{Q(T)u}\Vert\\
+                \le & \Vert{\tilde{Q}(T)}\Vert \Vert{(I - T)u}\Vert + \Vert{Q(T)u}\Vert\\
+                \le & C \Big(\Vert{(I - T)u}\Vert + \Vert{Q(T)u}\Vert \Big)
+            \end{split}
+        \end{equation*}
+        其中 $C = \max \{\Vert{\tilde{Q}(T), 1}\Vert\}$ , 由 $Q(T)$ 是紧算子, $I - T$ 是线性算子, 由练习(6.9)可知, $N(I - T)$ 有限维, $R(I - T)$ 是闭集.
+
+        对于 $E_0 \subset E$ , 只要考虑 $T$ 在 $E_0$ 上的限制 $T|_{E_0}$ , 完全按照上面的证明, 即可得到 $R(I - T|_{E_0}) = (I - T)E_0$ 是闭集.\\
+        
+        \noindent (2) \,证明 $N(I - T) = \{0\} \Rightarrow R(I - T) = E$ :\\
+        若 $R(I - T) \neq E$ , 设 $(I -T)^n E = E_n$ , 则显然 $E_n$ 是一个递减的集合列. 构造序列 $\{u_n\}$ , $\text{s.t. } \Vert{u_n}\Vert = 1$, $u_n \in E_n$ , $\text{dist}(u_n, E_{n + 1}) \ge 1/2$ , 则当 $m \ge n + 1$ 
+        \begin{equation*}
+            \begin{split}
+                    \Vert{Q(T)u_m - Q(T)u_n}\Vert
+                =   & \Vert{Q(T)u_m - Q(T)u_n + Q(I)u_n - Q(I)u_m - Q(I)u_n + Q(I)u_m}\Vert\\
+                =   & \Vert{Q(I)u_n - \big((I - T)\tilde{Q}(T)(u_m - u_n) + Q(I)u_n \big)}\Vert
+            \end{split}
+        \end{equation*}
+        $u_n \in E_n$ , $u_m \in E_m \subset E_{n + 1} \subset E_n$ , 则 $\tilde{Q}(T)(u_m -u_n) \in E_n$ , 那么 $(I - T)\tilde{Q}(T)(u_m - u_n) + Q(I)u_m \in E_{n + 1}$ , 由 $\text{dist}(u_n, E_{n + 1}) \ge 1/2$
+        \[
+            \Vert{Q(T)u_m - Q(T)u_n}\Vert = \Vert{Q(I)u_n - \big((I - T)\tilde{Q}(T)(u_m - u_n) + Q(I)u_n \big)}\Vert \ge \frac{\Vert{Q(I)}\Vert}{2}
+        \]
+        但 $Q(T)$ 是紧算子, 这显然矛盾, 故 $R(I - T) = E$ .
+
+        证明 $R(I - T) = E \Rightarrow N(I - T) = \{0\}$ :\\
+
+        首先我们证明 $Q(T^*)$ 是紧算子. $\forall u \in E$ , $v \in E^*$ , 有 $\langle{T^k u},{v}\rangle = \langle{T^{k -1} u},{T^* v}\rangle = \cdots = \langle{u},{(T^*)^k\,v}\rangle$ , 即 $(T^k)^* = {T^*}^k$ . 那么 
+        \[
+            \langle{Q(T)u},{v}\rangle = \langle{\sum^{p}_{k = 1}a_k T^ku},{v}\rangle = \sum^{p}_{k =1}a_k \langle{T^k},{v}\rangle = \sum^{p}_{k = 1}\langle{u},{{T^*}^k\,v}\rangle = \langle{u},{\sum^{p}_{k = 1}a_k {T^*}^k v}\rangle = \langle{u},{Q(T^*)v}\rangle
+        \]
+        即 ${Q(T)}^* = Q(T^*)$ , 故 $Q(T^*)$ 是紧算子.
+        
+        $R(I - T) = E$ , 则 $N(I - T^*) = \{0\}$ , 由上面半个小题的结论可以推出 $R(I - T^*) = E$ , 那么 $N(I - T) = \{0\}$ .\\
+
+        \noindent (3) \,由 $S(T^*)$ 紧可知, $d^* = \dim (I - T^*) < \infty$ . 假设 $d < d^*$ , 完全仿照定理6.6构造有限秩算子 $\Lambda$ , 投影 $P$ , 令 $S = T + \Lambda \circ P \in \mathcal{L}(E)$ , 可以证明 $N(I - S) = \{0\}$ .
+
+        因为 $R\big({(\Lambda \circ P)}^k\big) = {(\Lambda \circ P)}^k E \subset R(\Lambda \circ P)$ 是有限维的, 则 $Q(\Lambda \circ P) = \sum^{p}_{k = 1}a_k {(\Lambda \circ P)}^k$ 是有限秩的, 而 $Q(T)$ 是紧的, 故$Q(S) = Q(T) + Q(\Lambda \circ P)$ 是紧的. 由第二小题, $R(I - S) = E$ , 这显然是不可能的. 则 $d \ge d^*$
+
+        再对 $T^*$ 做类似证明, 有 $d^* \ge d^{**} = \dim N(I - T^{**})$ , 易知 $N(I - T) \subset N(I - T^{**})$ , 则 $d^* \ge d^{**} \ge d$ , 故 $d = d^*$.\\
+
+    \paragraph{6.11}\quad \\
+        \noindent (1) \,设 $F_n = \{u \in F | \Vert{u(x) - u(y)}\Vert < n d(x, y)^{\frac{1}{n}}, \, x, y  \in K\}$ , 显然 $\bigcup^{\infty}_{n = 1} F_n = F$ , 由贝尔定理, $\exists n_0$ , $\text{s.t. } \text{Int}F_{n_0} \neq \emptyset$ . 设 $B(u_0, \rho) \subset F_{n_0}$ , 则 $u \in F$ , 令 $\vert{\lambda}\vert < \rho/\Vert{u}\Vert$ , 则 $u_0 + \lambda u \in B(u_0, \rho) \subset F_{n_0}$ , 即 $\forall x, y \in E$
+        \[
+            \Vert{(u_0(x) + \lambda u(x)) - (u_0(y) + \lambda u(y))}\Vert < n_0 d(x,y)^{\frac{1}{n_0}}
+        \]
+        而 
+        \[
+            \Vert{\lambda(u(x) - u(y))}\Vert \le \Vert{(u_0(x) + \lambda u(x)) - (u_0(y) + \lambda u(y))}\Vert + \Vert{u_0(x) - u_0(y)}\Vert < 2n_0 d(x,y)^{\frac{1}{n_0}}
+        \]
+        则
+        \[
+            \Vert{u(x) - u(y)}\Vert < \frac{2}{n_0 \vert{\lambda}\vert} d(x,y)^{\frac{1}{n_0}} < \frac{2 \Vert{u}\Vert}{n_0 \rho} d(x,y)^{\frac{1}{n_0}}
+        \]
+        即对 $\forall u \in F$ , $\exists C, \gamma \text{s.t. } \Vert{u(x) - u(y)}\Vert < C \Vert{u}\Vert d(x,y)^\gamma$ .\\
+        
+        \noindent (2) \,$K$ 是紧集, $F \cap B_F = B_F$ 是 $E = C(K)$ 的有界闭子集, 由第一小题, $\forall \varepsilon > 0$ , 令 $\delta = {(\varepsilon/C)}^{1/\gamma}$ , 则当 $d(x, y) < \delta$
+        \[
+            \Vert{u(x) - u(y)}\Vert < C \Vert{u}\Vert d(x,y)^\gamma \le C d(x,y)^\gamma < \varepsilon
+        \]
+        由Ascoli-Arzel$\grave{\text{a}}$定理, $\bar{B_F} = B_F$ 是紧集, 则 $F$ 是有限维的.\\
+
+    \paragraph{6.17}\quad\\
+        \indent 考虑算子 $M - \alpha I: \, l^p \rightarrow l^p $ , $(M - \alpha I)x = ((\lambda_1 - \alpha)x_i, \cdots, (\lambda_n - \alpha)x_i, \cdots)$ .
+        
+        若 $\exists i$ , $\text{s.t. } \alpha = \lambda_i $ , $\forall x_i \in \mathcal{R}$ , $(M - \alpha I)(\overbrace{0, \cdots, 0}^{i - 1 \text{个}0}, x_i, 0, \cdots) = 0$ , 则显然此时 $M - \alpha I$ 不是双射. 除此以外的 $\alpha$ 都满足 $M - \alpha I$ 可逆, 故 $\sigma(M) = \{\lambda_1, \cdots, \lambda_n, \cdots\}$ .
+        
+        $\forall \alpha = \lambda_i \in \sigma(M)$ , 上面说明了 $(\overbrace{0, \cdots, 0}^{i - 1 \text{个}0}, x_i, 0, \cdots) \in N(M - \alpha I)$ , 则 $\alpha \in EV(M)$ , 即 $EV(M) = \sigma(M) = \{\lambda_1, \cdots, \lambda_n, \cdots\}$ .\\
+
+    \paragraph{6.20}\quad\\
+        \noindent (1) \,由实分析知识可知, 可积函数可以由阶梯函数来逼近, 定义算子 $P_n: L^p \rightarrow L^p$
+        \[
+            P_n u(x) = u(\frac{i}{n}), \quad x \in [\frac{i}{n} , \frac{i + 1}{n}], \quad i = 0, 1, \cdots, n
+        \]
+        当 $n \rightarrow \infty$ , $P_n u(x) \rightarrow u(x)$ . $P_n u(x)$ 只由 $0, 1/n, \cdots, n$ 这 $n + 1$ 个点上的值决定, 所以 $\dim R(P_n) = n + 1$ , $P_n$ 是有限秩的. 再定义 $T_n = T \circ P_n$ , 则显然 $T_n$ 也是连续的有限秩的, 且由控制收敛定理有 $T_n \rightarrow T$ , 故 $T$ 是紧算子.\\
+
+        \noindent (2) \,当 $\lambda = 0$ , 由 $Tu(x) = T(u(x) + 1)$ 可知, $T - \lambda I$ 不是双射, 故 $0 \in \sigma(T)$. 但因为 $Tu(x) = \int^x_0 u(t)dt = 0$ 对任意 $x \in (0, 1)$ 成立, 则显然 $u(x) \equiv 0$ , 故$0 \notin EV(T)$ .
+        
+        若 $Tu = \lambda u$ , 则对 $\forall y \in (0, 1)$ , $\int^y_0 Tu(x)dx = \int^y_0 \lambda u(x)dx$ , 即 
+        \[
+             \int^y_0 \int^x_0 u(t)dt dx = \int^y_0 \int^1_0 u(t)\chi_{[0,1]}(x-t)dt dx = \int^y_0 (y - t) u(t) dt = \int^y_0 \lambda u(x) dx
+        \]
+        故 
+        \[
+            \int^y_0 (y-t-\lambda) u(t) dt \equiv 0
+        \]
+        自然的, 其对 $y$ 的导数也恒为0 
+        \[
+            \frac{d \int^y_0 (y-t-\lambda) u(t) dt}{dy} = \int^y_0 u(t) dt - \lambda u(y) \equiv 0
+        \]
+        可以看出, 当 $y = 0$ , $u(0) = 0$ . 再次求导 
+        \begin{equation*}
+            \begin{split}
+                u(y) - \lambda u'(y) & \equiv 0\\
+                u(0) & = 0
+            \end{split}
+        \end{equation*}
+        解该微分方程, 得 $u(y) = 0$ , 那么 $N(T - \lambda I) = \{0\}$ , $\lambda \notin EV(T)$.
+        
+        综上, $EV(T) = \emptyset$ , $\sigma(T) = \{0\}$ .\\
+
+        \noindent (3) \,考虑 $f \in C((0, 1))$ 的特殊情况. 当 $\lambda \neq 0$ , $T - \lambda I$ 可逆, 则 $\exists |\, u \in C((0, 1))$ , $\text{s.t. } u = (T - \lambda I)^{-1} f$ , 那么 $(T - \lambda I)u = Tu - \lambda u = f$ . 设 $v = T u$ , $v \in C^1((0, 1))$ , $v' = u$ , $v(0) = 0$ , 故 
+        \begin{equation*}
+            \begin{split}
+                v(x) - \lambda v'(x) & = f(x)\\
+                v(0) & = 0
+            \end{split}
+        \end{equation*}
+         求解该微分方程组, 得 
+         \[
+             v(x) = -\frac{e^{x/2}}{\lambda} \int^x_0 g(t) e^{-t/2} dt
+         \]
+         那么 
+         \[
+             u(x) = v'(x) = -\frac{f(x)}{\lambda}-\frac{e^{x/2}}{\lambda^2}\int^x_0 e^{x/2} f(x) dt
+         \]
+         上式即当 $\lambda \neq 0$ 时, $T - \lambda I$ 在 $C(0, 1)$ 上的限制的显式表达.\\
+
+         \noindent (4) \,$\forall v \in L^{p^{'}}$ , $u \in L^p$
+         \begin{equation*}
+             \begin{split}
+                    \langle{Tu},{v}\rangle
+                 =  & \int^1_0 Tu(x) v(x) dx\\
+                 =  & \int^1_0 \Big( \int^1_0 u(y) dy \Big) v(x) dx\\
+                 =  & \int^1_0 u(y) \Big( \int^1_x v(x) dx \Big) dy
+             \end{split}
+         \end{equation*}
+         记 $T^*v(x) = \int^1_x v(t)dt$ , 则满足 $\langle{Tu},{v}\rangle = \langle{u},{T^*v}\rangle$ .
+\end{document}										%结束正文
