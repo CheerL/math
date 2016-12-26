@@ -1,0 +1,124 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+	\usepackage{amsmath}
+	\usepackage{amssymb}
+	\usepackage{amsthm}
+	\usepackage{geometry}
+		\geometry{left = 2.54cm, right = 2.54cm,
+			top = 3.18cm, bottom = 3.18cm}			%页边距设置
+	\usepackage{fancyhdr}
+		\pagestyle{fancy}
+		%\lfoot{\today}   							%左页脚
+		\cfoot{\thepage}							%中页脚
+		%\rfoot{林陈冉}	 						 		%右页脚
+		\setlength{\parskip}{0.5 \baselineskip}		%段距
+	\usepackage{hyperref}  							%打开超链接
+		\hypersetup{colorlinks=false}				%取消超链接颜色
+	\usepackage{tikz}
+	\usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+	\title{第五章习题}
+	\author{林陈冉}
+	\date{\today}
+
+%---------------------------定理环境----------------------------
+	\newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+	\newtheorem{define}{\bf 定义}[section]
+	\newtheorem{algo}{\bf 算法}
+	\renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+	\numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+	\maketitle										%生成标题
+	\paragraph{5.2}\quad\\
+	\indent 当 $1 \le p < \infty$ , $p \neq 2$ , 令 $A, B \in \Omega$ , $A \cap B = \emptyset$ , $\vert{A}\vert = \vert{B}\vert = 1$ , $f = \chi_A$ , $g = \chi_B$ . 则 $\Vert{f + g / 2}\Vert_p = \Vert{f - g / 2}\Vert_p = \Big( \int^{ }_{A \cup B} (\frac{1}{2})^p dx \Big)^{1/p} = 2^{\frac{2}{p} - 2}$ , $\Vert{f}\Vert_p = \Vert{g}\Vert_p = 1$ , 即
+	\[
+		\Vert{\frac{f + g}{2}}\Vert_p + \Vert{\frac{f - g}{2}}\Vert_p  = 2^{\frac{2}{p} - 1} \neq 1 = \frac{1}{2} (\Vert{f}\Vert_p + \Vert{g}\Vert_p)
+	\]    
+	当 $p = \infty$ , $\Vert{f + g / 2}\Vert_\infty = \Vert{f - g / 2}\Vert_\infty = \frac{1}{4}$ , $\Vert{f}\Vert_p = \Vert{g}\Vert_p = 1$ , $\Vert{f}\Vert_\infty = \Vert{g}\Vert_\infty = 1$ , 即 
+	\[
+		\Vert{\frac{f + g}{2}}\Vert_\infty + \Vert{\frac{f - g}{2}}\Vert_\infty  = \frac{1}{2} \neq 1 = \frac{1}{2} (\Vert{f}\Vert_\infty + \Vert{g}\Vert_\infty)
+	\]   
+	综上, 当 $p \neq 2$ , $L^p$ 不是Hilbert的.\\
+
+	\paragraph{5.4}\, 
+	\begin{equation*}
+		\begin{split}
+				& \vert{v - f}\vert^2 - \vert{u - f }\vert^2 - \vert{v - u}\vert^2\\
+			=   & ({v - f},{v - f}) - ({u - f},{u - f}) - ({u - v},{u - v})\\
+			=   & ({v - f},{v}) - ({v - f},{f}) - ({u - f},{u}) + ({u - f},{f}) - ({u - v},{u}) + ({u - v},{v})\\
+			=   & ({v},{v}) - ({f},{v}) - ({v},{f}) + ({f},{f}) -({u},{u}) + ({f},{u})\\
+				& + ({u},{f}) - ({f},{f}) - ({u},{u}) + ({v},{u}) + ({u},{v}) - ({v},{v})\\
+			=   & -2 ({u},{u}) - 2 ({f},{v}) + 2 ({f},{u}) + 2 ({u},{v})\\
+			=   & 2\Big( ({f},{u - v}) - ({u},{u - v}) \Big)\\
+			=   & 2 ({f -u},{v - u})
+		\end{split}
+	\end{equation*}
+	由 $u = P_K f$ , 则 $({f -u},{v - u}) \ge 0$ , 那么
+	\[
+		\vert{v - f}\vert^2 - \vert{u - f }\vert^2 - \vert{v - u}\vert^2 \ge 0 \Leftrightarrow \vert{v - u}\vert^2 \le \vert{v - f}\vert^2 \vert{u - f }\vert^2
+	\]
+	
+	从上面的式子可知 $\vert{v - u}\vert^2 \le \vert{v - f}\vert^2 - \vert{u - f }\vert^2 \le \vert{v - f}\vert$ ,
+	显然有 $\vert{v - u}\vert \le \vert{v - f}\vert$ . 几何解释为钝角三角形最大角的余弦公式.\\
+
+	\paragraph{5.14}\, $\forall u , v \in H$ , $t \in (0, 1)$
+	\begin{equation*}
+		\begin{split}
+				& t F(u) + (1 -t) F(v) - F(t u + (1 - t) v)\\
+			=   & t a(u, u) + (1 -t) a(v, v) - a(t u + (1 - t) v, t u + (1 - t) v)\\
+			=   & t a(u, u) + (1 -t) a(v, v) - t^2 a(u, u) - (1 - t)^2 a(v, v)\\
+				& - t (1 - t) a(u, v) - t (1 - t) a(v, u)\\
+			=   & t(1 - t) \big( a(u, u) + a(v, v) - a(u, v) - a(v, u) \big)\\
+			=   & t(1 - t) a(u - v, u - v) \ge 0
+		\end{split}
+	\end{equation*}
+	则 $F(t u + (1 - t) v) \le t F(u) + (1 -t) F(v)$ , $F$ 是凸函数.
+
+	给定 $\forall v \in H$ , 定义映射 $T_v: H \rightarrow \mathbb{R}$ , $\langle{T_v},{u}\rangle = a(u, v)$ , 显然 $T_v \in H^*$ , 由里斯表示定理, $\exists h_v \in H$ , $\langle{T_v},{u}\rangle = ({u},{h_v}) = a(u, v)$ , 这相当于给出一个映射 $\mathcal{A}(v) = h_v$ . $\forall v_1, v_2 \in H$ , $v_1 \neq v_2$ ,
+	\[
+		({u},{h_{v_1}} + h_{v_2}) = ({u},{h_{v_1}}) + ({u},{h_{v_2}}) = a(u, v_1) + a(u, v_2) = a(u, v_1 + v_2) = ({u},{h_{v_1 + v_2}})
+	\]
+	$\forall \alpha \in \mathbb{R}$ , 
+	\[
+		({u},{h_{\alpha v}}) = a(u, \alpha v) = \alpha a(u, v) = \alpha ({u},{h_v})
+	\]
+	上面两个式子说明 $\mathcal{A} \in H^*$ . 则 $a(u, v) = ({u},{\mathcal{A} v}) = ({\mathcal{A}^* u},{v})$ 
+	\[
+		F(u + v) - F(v) = a(v, v) + (\mathcal{A}^* u, v) + (\mathcal{A} u, v)
+	\]
+	则当 $v \rightarrow 0$ , 可得 $F'(u) = \mathcal{A}^* u + \mathcal{A} u$ .\\
+
+	\paragraph{5.22}\quad\\
+	\noindent(1) \, 首先考虑 $C = H$ . $\forall u, v \in H$ , $\vert{T (u + t v) - T u}\vert \le \vert{t v}\vert \le \vert{t}\vert \vert{v}\vert$ , 当 $t \rightarrow 0$ , $\vert{T (u + t v) - T u}\vert \rightarrow 0$ , 即 $T$ 连续 , $T (u + t v) \rightarrow T u$ . $\forall u, v \in H$
+	\begin{equation*}
+		\begin{split}
+				& ({(u - T u) - (v - T v)},{u - v})\\
+			=	& ({u - v},{u - v}) - ({T u - T v},{u - v})\\
+			\ge	& \vert{u - v}\vert - \vert{T u - T v}\vert^{\frac{1}{2}} \vert{u - v}\vert^{\frac{1}{2}}\\
+			\ge	& 0
+		\end{split}
+	\end{equation*}
+	则 $({(u_n - T u_n) - (u + t v - T (u + t v))},{u_n - u + t v}) \ge 0$ . 由 $u_n - T u_n \rightarrow f$ , $u_n \rightharpoonup u$ , 可得当 $n \rightarrow \infty$ , $({f - (u + t v - T (u + t v))},{t v}) \ge 0$ . 
+	
+	当 $t > 0$ ,  $({f - (u + t v - T (u + t v))},{v}) \ge 0$ ; 当 $t < 0$ , $({f - (u + t v - T (u + t v))},{v}) \le 0$ . 故 $({f - (u + t v - T (u + t v))},{v}) = 0$ . 当 $t \rightarrow 0$ , $({f - (u - T u)},{v}) = 0$ , $\forall v \in H$ , 故 $f = u - T u$ .
+
+	当 $C \subset H$ , 考虑映射 $\bar{T} = T \circ P_c$ , $\bar{T}: H \rightarrow H$ , 易证 $\bar{T}$ 连续, 且也是压缩映射, 完全类似上面的证明, 可得 $f = u -T u$ .\\
+
+
+
+
+	\noindent(2) \, 定义 $T_n: C \rightarrow C$ , $T_n u = (1 - \frac{1}{n}) T u - \frac{a}{n}$ , 其中 $a \in C$ 固定. $\forall u, v \in C$
+	\[
+		T_n u - T_n v = (1 - \frac{1}{n}) \vert{T u - T v}\vert < \vert{u - v}\vert
+	\]
+	故 $T_n$ 是压缩算子, $\exists u^*_n \in C \subset m B_H$ , $\text{s.t. } T_n u^*_n = u^*_n$ , 其中 $m = \sup_{u \in C} \vert{u}\vert$ . 由 $H$ 自反, 可知 $m B_H$ 是弱紧的, 则 $\{u^*_n\}$ 中有弱收敛子列 $u^*_{n_k} \rightharpoonup u^*$ . 
+	\[
+		u^*_n - T u^*_n = \frac{1}{n} \vert{T u^*_n - a}\vert \le \frac{1}{n} (\vert{T u^*_n}\vert + \vert{a}\vert) \le \frac{2 m}{n}
+	\]
+	故当 $n \rightarrow \infty$ , $\vert{u^*_n - T u^*_n}\vert \rightarrow 0$ . 由第一小题结论可知, $u^* - T u^* = 0$ , 即 $T$ 有不动点.
+\end{document}										%结束正文
