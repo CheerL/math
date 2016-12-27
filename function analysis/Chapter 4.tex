@@ -1,0 +1,192 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+	\usepackage{amsmath}
+	\usepackage{amssymb}
+	\usepackage{amsthm}
+	\usepackage{geometry}
+		\geometry{left = 2.54cm, right = 2.54cm,
+			top = 3.18cm, bottom = 3.18cm}			%页边距设置
+	\usepackage{fancyhdr}
+		\pagestyle{fancy}
+		%\lfoot{\today}   							%左页脚
+		\cfoot{\thepage}							%中页脚
+		%\rfoot{林陈冉}	 						 		%右页脚
+		\setlength{\parskip}{0.5 \baselineskip}		%段距
+	\usepackage{hyperref}  							%打开超链接
+		\hypersetup{colorlinks=false}				%取消超链接颜色
+	\usepackage{tikz}
+	\usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+	\title{Chapter 4}
+	\author{林陈冉}
+	\date{\today}
+
+%---------------------------定理环境----------------------------
+	\newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+	\newtheorem{define}{\bf 定义}[section]
+	\newtheorem{algo}{\bf 算法}
+	\renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+	\numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+	\maketitle										%生成标题
+	\paragraph{4.5}\quad\\
+	\noindent(1) \, 当 $f \in L^1 \cap L^\infty$ ,
+	$\Vert{f}\Vert_p \le \Vert{f}\Vert_1^{\frac{1}{p}} \Vert{f}\Vert_\infty^{1-\frac{1}{p}} \le \infty$ ,
+	则 $f \in L^p$ ,
+	即 $L^1 \cap L^\infty \subset L^p$ . $\Omega$ 是 $\sigma$-有限的,
+	则 $\Omega = \bigcup^N_{1 = 1} \Omega_i$ ,\
+	$\vert{\Omega_i}\vert < \infty$ .
+	令 $\chi_n = \chi_{\Omega_n}$ ,
+	则易知 $f_n = \chi_n T_n f \in L^1 \cap L^\infty$ ,
+	$\Vert{f_n - f}\Vert_p \rightarrow 0$ ,
+	即在 $L^p$ 意义下 $f_n \rightarrow f$ ,
+	故 $L^1 \cap L^\infty$ 在 $L^p$ 中稠密.\\
+	
+	\noindent(2) \, 记 $V = \{f \in L^p \cap L^q \,\big|\, \Vert{f}\Vert_q \le 1\}$ ,
+	$f_n \in V$ ,
+	则 $f_n \in L^p$ , $\Vert{f_n}\Vert_q \le 1$ ,
+	若 $f_n \rightarrow f$ , 显然 $f \in L^p$ ,
+	又由法图引理, 易知有 $\Vert{f_n}\Vert_q \le 1$ ,
+	故 $f \in V$ , 即 $V$ 是闭集.\\
+
+	\noindent(3) \, 由第(2)小题可知, $f \in L^p$ , $\Vert{f}\Vert_q \le C$.
+	对于任意大小介于 $p$ , $q$ 之间的 $r$ , 令 $\alpha \in \mathbb{R}$ 满足 $\frac{1}{r} = \frac{\alpha}{p} + \frac{1 - \alpha}{q}$,
+	则 $\Vert{f}\Vert_r \le \Vert{f}\Vert_p^\alpha \Vert{f}\Vert_q^{1 - \alpha} < \infty$,
+	即 $f \in L^r$ ,
+	$\forall \varepsilon > 0$ , 由在 $L^p$ 意义下 $f_n \rightarrow f$,
+	对上面由 $r$ 给定的 $\alpha$ , $\exists N > 0$ , $\forall n > N$ ,
+	$\Vert{f_n - f}\Vert_p \le (\frac{(2C)^{1 - \alpha}}{\varepsilon})^\alpha$,
+	则 
+	\[
+		\Vert{f_n - f}\Vert_r \le \Vert{f_n - f}\Vert_p^\alpha \Vert{f_n - f}\Vert_q^{1 - \alpha} \le \Big(\frac{(2C)^{1 - \alpha}}{\varepsilon})^\alpha\Big)^\alpha (2C)^{1 - \alpha} \le \varepsilon
+	\]
+	故在 $L^r$ 意义下, $f_n \rightarrow f$ .\\
+
+	\paragraph{4.6}\quad\\
+	\noindent(1) \, $\forall f \in L^\infty$ , $\Vert{f}\Vert_p = \Big(\int^{ }_{\mathbb{R}^N} \vert{f}\vert_p \Big)^{\frac{1}{p}} \le \Big( \int^{ }_{\mathbb{R}^N} \Vert{f}\Vert_\infty^p \Big)^{\frac{1}{p}} = \Vert{f}\Vert_\infty \vert{\Omega}\vert^{\frac{1}{p}}$ ,
+	则 $\lim_{p \rightarrow \infty}\Vert{f}\Vert_p \le \Vert{f}\Vert_\infty$ .
+
+	另一方面, 令 $A_k = \{x \in \Omega \,\big|\, f(x) > k \}$ ,
+	由 $\Vert{f}\Vert_\infty < \infty$ ,
+	对 $\forall 0 < k < \Vert{f}\Vert_\infty$ ,
+	$\vert{A_k}\vert \neq 0$ ,
+	那么 $\Vert{f}\Vert_p \ge \Big( \int^{ }_{A_k} \vert{f}\vert^p \Big)^{\frac{1}{p}} \ge k \vert{A_k}\vert^{\frac{1}{p}}$ ,
+	则 $\lim_{p \rightarrow \infty} \Vert{f}\Vert_p \ge k$ ,
+	当 $k \rightarrow \Vert{f}\Vert_\infty$ ,
+	可得 $\lim_{p \rightarrow \infty} \Vert{f}\Vert_p \ge \Vert{f}\Vert_\infty$ .
+
+	综上, 有 $\lim_{p \rightarrow \infty} \Vert{f}\Vert_p = \Vert{f}\Vert_\infty$ .\\
+
+	\noindent(2) \, $\forall k > C$ , 如第(1)小题定义 $A_k$ ,
+	则有 $C^p > \Vert{f}\Vert^p_p > \int^{ }_{A_k} \vert{f}\vert^p > k^p \vert{A_k}\vert$ ,
+	即 $\vert{A_k}\vert < \big( \frac{C}{k} \big)^{\frac{1}{p}}$ ,
+	那么 $\lim_{p \rightarrow \infty} \vert{A_k}\vert = 0$ ,
+	故 $\Vert{f}\Vert_\infty \le C$ .\\
+
+	\noindent(3) \, $f(x) = log(x)$\\
+
+	\paragraph{4.16}\quad\\
+	\noindent(1) \, 已知 $f_n$ 有界, 记 $M = \sup \vert{f_n}\vert$ ,
+	由 $1 < p < \infty$ , 则 $M B_{L^p}$ 是弱紧且可度量的,
+	故 $\exists \bar{f} \in L^p$ , $f_n \rightharpoonup \bar{f}$ ,
+	设 $E = conv\{f_n\}$ , 由习题3.4, 可知 $\exists g_n \in E$ , $\text{s.t. } \vert g_n - \bar{f} \vert \rightarrow 0$ ,
+	则存在子列 $\{g_{n_k}\}$ , 几乎处处 $g_{n_k} \rightarrow \bar{f}$ .
+	$g_{n_k}(x) = \sum^{ }_{ }a_k f_k(x)$ ,
+	而同时, 几乎处处 $f_n \rightarrow f$ ,
+	则 
+	\[
+		\bar{f}(x) = \lim_{n \rightarrow \infty} g_{n_k}(x) = \sum^{ }_{k} a_k \lim_{k \rightarrow \infty} f_k(x) = \sum^{}_{k} a_k f(x) = f(x)
+	\]
+	即几乎处处 $f = \bar{f}$ . 故 $f_n \rightharpoonup f$ .\\
+
+	\noindent(2) \, 当 $\Vert{f_n - f}\Vert_1 \rightarrow 0$ ,
+	则存在子列 $f_{n_k}$ ,
+	几乎处处 $f_{n_k} \rightarrow f$ , 又化为第(1)小题的情况.\\
+
+	\noindent(3) \, 由Egorov定理, $\forall \delta > 0$ ,
+	$A \subset \Omega$ ,
+	$\vert{\Omega \setminus A}\vert < \delta$ ,
+	使得 $f_n$ 在 $A$ 上一致收敛到 $f$ .
+	即 $\forall \delta > 0$ ,
+	$\exists N > 0$ , $\forall n > N$ ,
+	$\vert{f_n(x) - f(x)}\vert < \delta$ 对 $\forall x \in A$ 成立.
+	对 $\forall \varepsilon > 0$ , 令 $\delta < \frac{\varepsilon}{\vert{\Omega}\vert + (2M)^p} < 1$ , 取满足上述条件的集合 $A$ 和整数 $N$ , 
+	\[
+		\Vert{f_n - f}\Vert_p^p = \int^{ }_{A} \vert{f_n(x) - f(x)}\vert^p + \int^{ }_{\Omega \setminus A} \vert{f_n(x) - f(x)}\vert^p \le \delta(\vert{\Omega}\vert + (2M)^p) \le \varepsilon
+	\]
+	故 $\Vert{f_n - f}\Vert_p \rightarrow 0$ .\\
+
+	\paragraph{4.28}\quad\\
+	\indent 设 $\chi_n = \chi_{B(0, n)}$ ,
+	由 $\rho \in L^1$ , $\chi_n \rho \rightarrow \rho$,
+	即 $\forall \varepsilon > 0$ , $\exists N_1 > 0$ , $\forall n > N_1$ , 
+	\[
+		\int^{ }_{\mathbb{R}^N} \vert{\chi_n \rho - \rho}\vert = \int^{ }_{\mathbb{R}^N \setminus B(0, n)} \vert{\rho}\vert < \varepsilon
+	\]
+	那么 $\int^{ }_{\mathbb{R}^N \setminus B(0, \frac{1}{n})} \vert{\rho_{n^2}}\vert < \varepsilon$ .
+	
+	先考虑 $f \in C_c(\mathbb{R}^N)$ , 则 $\vert{f}\vert = M < \infty$ .
+	对于上述给定 $\varepsilon$ , $\exists \delta > 0$ ,
+	$\text{s.t. } \vert{f(x + y) - f(x)}\vert < \varepsilon$,
+	$\forall x \in supp\,f$ , $\forall y \in B(0, \delta)$ .
+	取 $N_2 < \frac{1}{\delta}$ , 令 $N = \max \{N_1, N_2\}$ ,
+	则 $\forall n > N$ , $\forall x \in \mathbb{R}^N$
+	\begin{equation}
+		\begin{split}
+				& \vert{f(x) - \rho_{n^2}*f(x)}\vert\\
+			=	& \Big\vert \int^{ }_{\mathbb{R}^N} (f(x) - f(x - y)) \rho_{n^2}(y) dy \Big\vert\\
+			=	& \Big\vert \int^{ }_{B(0, \frac{1}{n})} (f(x) - f(x - y)) \rho_{n^2}(y) dy \Big\vert + \Big\vert \int^{ }_{\mathbb{R}^N \setminus B(0, \frac{1}{n})} (f(x) - f(x - y)) \rho_{n^2}(y) dy \Big\vert\\
+			\ge	& \varepsilon + 2M \varepsilon
+		\end{split}
+	\end{equation}
+	故几乎处处 $\rho_{n}*f \rightarrow f$ , 易得当 $1 < p < \infty$ ,
+	$\Vert{\rho_{n}*f - f}\Vert_p \rightarrow 0$ .
+
+	再考虑 $f \in L^p$ ,
+	$\forall \varepsilon > 0$ ,
+	$\exists f_0 \in C_c(\mathbb{R}^n)$ ,
+	$\text{s.t. } \Vert{f - f_0}\Vert_p < \varepsilon$ .
+	由上面的证明, $\exists N > 0$ , $\forall n > N$ ,
+	$\Vert{\rho_{n}*f_0 - f_0}\Vert_p < \varepsilon$ .
+	那么 
+	\[
+		\Vert{f - \rho_{n}*f}\Vert_p \le \Vert{f - f_0}\Vert_p + \Vert{f_0 - \rho_{n}*f_0}\Vert_p + \Vert{\rho_{n}*f - \rho_{n}*f_0}\Vert_p < 3 \varepsilon
+	\]
+	故在 $L^p$ 意义下 $\rho_{n}*f \rightarrow f$ .\\
+
+	\paragraph{4.29}\quad\\
+	\indent 设 $\chi_n = \chi_{K + B(0, \frac{1}{2n})}$ , $u_n = \rho_{2n} * \chi_n$ . 
+	
+	(a) $\forall x \in \mathbb{R}^N$ , $\rho_{2n}(x) \ge 0$ , $\chi_n{x} \ge 0$ , 则 $u_n(x) \ge 0$ .
+	另一方面, $u_n(x) = \int^{ }_{\mathbb{R}^N} \rho_{2n}(x - y)\chi_n(y)dy \le \int^{ }_{\mathbb{R}^N} \rho_{2n}(x - y) dy \le 1$ .
+
+	(b) 当 $x \in K$ , $B(0 ,\frac{1}{2n}) \subset x - (K + B(0 ,\frac{1}{2n}))$ ,
+	则 
+	\[
+		\int^{ }_{\mathbb{R}^N} \rho_{2n}(x - y) \chi_n(y) dy = \int^{ }_{x - (K + B(0 ,\frac{1}{2n})) \cap B(0 ,\frac{1}{2n})} \rho_{2n}(x - y) \chi_n(y) dy = \int^{ }_{B(0, \frac{1}{2n})} \rho_{2n}(y)dy = 1
+	\]
+	
+	(c) $supp \, u_n \subset \overline{supp \, \rho_{2n} + supp \chi_n} = \overline{B(0, \frac{1}{2n}) + K + B(0, \frac{1}{2n})} = \overline{K + B(0, \frac{1}{n})}$
+
+	(d) $D^\alpha \rho_n(x) = \frac{1}{\int \rho} n^N D^\alpha \rho(nx) = \frac{n^\alpha}{\int \rho} n^N \rho^{[\alpha]}(nx) = n^\alpha \frac{\int \rho^{[\alpha]}}{\int \rho} \frac{1}{\int \rho^{[\alpha]}} n^N \rho^{[\alpha]}(nx) = C_\alpha n^\alpha \rho^{[\alpha]}_n(x)$ ,
+	其中 $\rho^{[\alpha]}_n(x) = \frac{1}{\int \rho^{[\alpha]}} n^N \rho^{[\alpha]}(nx)$ , 是由 $\rho^{[\alpha]}$ 构造的磨光子, 易验证它确实满足磨光子的3个条件.
+
+	$D^\alpha u_n = (D^\alpha \rho_{2n})*\chi_n = 2^\alpha C_\alpha n^\alpha (\rho^{[\alpha]}_{2n}(x)*\chi_n)$ , 完全类似上面的证明, 有 $\vert{\rho^{[\alpha]}_{2n}(x)*\chi_n(x)}\vert \le 1$ 则 $\vert{D^\alpha u_n(x)}\vert \le 2^\alpha C_ \alpha n^\alpha$ .\\
+
+	\paragraph{4.32}\quad\\
+	\noindent(1) \, $f, g \in L^1$ , 则 
+	\[
+		f*g(x) = \int^{ }_{\mathbb{R}^N} f(x - y) g(y) dy = \int^{ }_{\mathbb{R}^N} f(z) g(x - z) d(-z) = \int^{ }_{\mathbb{R}^N} g(x - z) f(z) dz = g*f(x)
+	\]
+	$h \in L^p$ , 则设 $F(x, y, z) = f(x - y - z) g(z) h(y)$
+	\[
+		F(x, y, z) 
+	\]
+	
+
+\end{document}										%结束正文
