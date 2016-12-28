@@ -1,0 +1,121 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+	\usepackage{amsmath}
+	\usepackage{amssymb}
+	\usepackage{amsthm}
+	\usepackage{geometry}
+		\geometry{left = 2.54cm, right = 2.54cm,
+			top = 3.18cm, bottom = 3.18cm}			%页边距设置
+	\usepackage{fancyhdr}
+		\pagestyle{fancy}
+		%\lfoot{\today}   							%左页脚
+		\cfoot{\thepage}							%中页脚
+		%\rfoot{}	 						 		%右页脚
+		\setlength{\parskip}{0.5 \baselineskip}		%段距
+	\usepackage{hyperref}  							%打开超链接
+		\hypersetup{colorlinks=false}				%取消超链接颜色
+	\usepackage{tikz}
+	\usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+	\title{期末考试}
+	\author{林陈冉}
+	\date{\today}
+
+%---------------------------定理环境----------------------------
+	\newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+	\newtheorem{define}{\bf 定义}[section]
+	\newtheorem{algo}{\bf 算法}
+	\renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+	\numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+	\maketitle										%生成标题
+	\section{说明}\label{note}
+		以下为中国科学院大学2016年秋季学期泛函分析考试试题, 解答均为本人个人想法, 仅作参考. 提及的书本为 {\it 泛函分析、索伯列夫空间和偏微分方程, Haim Brezis, 世界图书出版社, 2015年7月第一次版}.
+	\section{考题}\label{question}
+		\paragraph{1} \, (20分)\\
+			\indent (a) 叙述一致凸 Banach 空间的定义.\\
+			\indent (b) 设 $E$ 是一致凸 Banach 空间, 设 $\{x_n\}$ 是 $E$ 中序列使得 $x_n \rightharpoonup x$ 对 $\sigma(E, E^*)$ 弱收敛, 且 
+			\[
+				\lim_{ } \sup \Vert{x_n}\Vert \le \Vert{x}\Vert
+			\]
+			\indent 证明: $x_n$ 强收敛到 $x$ .\\
+
+		\paragraph{2} \, (15分)\\
+			\indent 证明: 设 $E$ 是 Banach 空间, $E^*$ 是可分的, 则 $E$ 是可分的.\\
+		
+		\paragraph{3} \, (15分)\\
+			\indent 证明: 设 $\Omega = (0, 1)$ , $1< p < \infty$ , $g_n(x) = n^{\frac{1}{p}}e^{-nx}$ , 则有下面的结论成立: (a) $g_n \rightarrow 0$ a.e.; (b) $g_n$ 在 $L^p(\Omega)$ 中有界; (c) 在 $L^p(\Omega)$ 范数下, $g_n \nrightarrow 0$ ; (d) 在 $\sigma(L^p, L^{p'})$ 拓扑下, $g_n \rightharpoonup 0$.\\
+
+		\paragraph{4} \, (20分)\\
+			\indent (a) 叙述磨光子的定义;\\
+			\indent (b) 设 $(\rho_n)_{n \ge 1}$ 是一列磨光子, $f \in L^p(\mathbb{R}^n)$ , $1 < p < \infty$ , 证明: 在 $L^p$ 中, $(\rho_n * f) \rightarrow f \, (n \rightarrow \infty)$ .\\
+		
+		\paragraph{5} \, (15分)\\
+			\indent 证明: 设 $H$ 是一个 Hilbert 空间, $M$ , $N$ 是它的两个闭线性子空间, 并且满足 
+			\[
+				({u},{v}) = 0, \, \forall u \in M, \, \forall v \in N
+			\]
+			\indent 证明 $M + N$ 是闭的.\\
+
+		\paragraph{6} \, (15分)\\
+			\indent 证明: 设 $H$ 是一个可分的 Hilbert 空间, $T$ 是自共轭紧算子, 则 $H$ 拥有 $T$ 的特征向量构成的 Hilbert 基.\\
+
+	\section{证明}\label{proof}
+		\paragraph{1}\quad\\
+			\indent (a) 一个空间是一致凸的, 即 $\forall \varepsilon > 0$ , $\exists \delta > 0$ , $\text{s.t. } \Vert{\frac{x + y}{2}}\Vert < 1 - \delta$ , $\forall x, y \in E$ , $\Vert{x}\Vert \le 1$ , $\Vert{y}\Vert \le 1$ , $\Vert{x - y}\Vert \ge \varepsilon$ .\\
+			\indent (b) 见书本78页命题3.32.\\
+
+		\paragraph{2}\quad\\
+			\indent 见书本73页定理3.26.\\
+
+		\paragraph{3}\quad (书本122页习题4.15)\\
+			\indent (a) 由洛必达法则
+			\[
+				\lim_{n \rightarrow \infty} g_n(x) = \lim_{n \rightarrow \infty} \frac{n^{\frac{1}{p}}}{e^{nx}} = \lim_{n \rightarrow \infty} \frac{n^{\frac{1}{p} - 1}}{p x e^{nx}} = \frac{0}{\infty} = 0
+			\]
+			
+			\indent (b) 
+			\[
+				\Vert{g_n}\Vert = \Big( \int^{1}_{0} \vert{n^{\frac{1}{p}}e^{-nx}}\vert^p \Big)^{\frac{1}{p}} = \Big( \int^{1}_{0} n e^{-npx} \Big)^{\frac{1}{p}} = (\frac{1 - e^{-np}}{p})^{\frac{1}{P}} \le (\frac{1}{p})^{\frac{1}{p}}
+			\]
+
+			\indent (c) 
+			\[
+				\lim_{n \rightarrow \infty} \Vert{g_n}\Vert = \lim_{n \rightarrow \infty} (\frac{1 - e^{-np}}{p})^{\frac{1}{P}} = (\frac{1}{p})^{\frac{1}{p}} > 0
+			\]
+
+			\indent (d) $f \in L^{p'}$ , $\forall \varepsilon > 0$ , $\exists f_0 \in C_c$ , $\Vert{f - f_0}\Vert_p < \frac{\varepsilon^p}{k}$ , 其中 $k$ 是一个正整数. 记 $A_k = \{x \in (0, 1) \, | \, f_0(x) - f(x) > \varepsilon\}$ , 则 $\vert{A_k}\vert < \frac{1}{k}$ , 否则 $\Vert{f - f_0}\Vert_p = \int^{1}_{0} \vert{f(x) - f_0(x)}\vert^p dx \ge \int^{ }_{A_k} \vert{f(x) - f_0(x)}\vert^p dx \ge \frac{\varepsilon^p}{k}$ . 当 $k \rightarrow \infty$ , $\vert{A_k}\vert \rightarrow 0$ , 即 $\vert{f(x) - f_0(x)}\vert < \varepsilon$ a.e. 
+			
+			记 $M = \sup \vert{f_0(x)}\vert$ 
+			\[
+				\int^{1}_{0} \vert{f}\vert \vert{g_n}\vert \le \int^{1}_{0} \vert{f_0}\vert \vert{g_n}\vert + \int^{1}_{0} \vert{f - f_0}\vert \vert{g_n}\vert \le (M + \varepsilon)\int^{1}_{0} \vert{g_n}\vert = (M + \varepsilon) n^{\frac{1}{p} - 1} (1 - e^{-n}) \le (M + \varepsilon) n^{\frac{1}{p} - 1}
+			\]
+			当 $n \rightarrow \infty$ , $(M + \varepsilon) n^{\frac{1}{p} - 1} \rightarrow 0$ , 则 $\lim_{n \rightarrow  \infty} \int^{1}_{0} fg_n = 0$ , 则 $g_n \rightharpoonup 0$ .\\
+
+		\paragraph{4}\quad\\
+			\indent (a) 磨光子 $(\rho_n)$ 是一族函数, 满足 
+			\[
+				\rho_n \in C_c^\infty, \quad \text{supp } \rho_n \subset B(0, \frac{1}{n}), \quad \int^{ }_{ } \rho_n = 1, \quad \rho_n(x) \ge 0
+			\]
+
+			\indent (b) 见书本109页定理4.22.\\
+
+		\paragraph{5}\quad (书本151页习题5.17)\\
+			\indent 设 $\{a_n\}$ 是 $H$ 中的柯西列, $a_n \rightarrow a$ , $a_n = u_n + v_n$ , $u_n \in M$ , $v_n \in N$ . $\forall \varepsilon > 0$ , $\exists N > 0$ , $\forall m, n > N$
+			\[
+				\vert{a_n - a_m}\vert^2 = ({(u_n + v_n) - (u_m + v_m)},{(u_n + v_n) - (u_m + v_m)}) = \vert{u_n - u_m}\vert^2 + \vert{v_n - v_m}\vert^2 \le \varepsilon 
+			\]
+			故 $\{u_m\}$ , $\{v_n\}$ 也是柯西列, 记 $u_n \rightarrow u \in M$ , $v_n \rightarrow v \in N$ . 则对于上面给定的 $\varepsilon$ , $\exists N_1 > 0$ , $n > N_1$ $\vert{u_n - u}\vert < \varepsilon/2$ , 同理 $\exists N_2 > 0$ , $n > N_2$ $\vert{v_n - v}\vert < \varepsilon/2$ , 那么取 $N = \max \{N_1, N_2\}$ , $\forall n > N$ 
+			\[
+				\vert{a_n - (u + v)}\vert < \vert{u_n - u}\vert + \vert{v_n - v}\vert < \varepsilon
+			\]
+			即 $a_n \rightarrow u + v$ , 而已知 $a_n \rightarrow a$ , 则 $a = u + v \in M + N$ , 即 $M + N$ 是闭的.\\
+
+		\paragraph{6}\quad\\
+			\indent 见书本167页定理6.11.
+\end{document}										%结束正文
