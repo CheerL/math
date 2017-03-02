@@ -1,0 +1,115 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}							%中页脚
+        %\rfoot{}	 						 		%右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{tikz}
+    \usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+    \title{离散数学第一次作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{1.2.4}\quad \\
+        Alice 和 $\{1\}$
+    \paragraph{1.2.9}\quad\\
+        $\{0, 1, 3, 4, 5\}$
+    \paragraph{1.2.17}\quad
+        \begin{equation*}
+            \begin{split}
+                &\vert{A \cap B}\vert + \vert{A \cup B}\vert\\
+                = &\vert{A \cap B}\vert + \vert{A \setminus (A \cap B)}\vert + \vert{B \setminus A \cap B}\vert + \vert{A \cap B}\vert\\
+                = & (\vert{A \setminus (A \cap B)}\vert + \vert{A \cap B}\vert) + (\vert{B \setminus (A \cap B)}\vert + \vert{A \cap B}\vert)\\
+                = & \vert{A}\vert + \vert{B}\vert
+            \end{split}
+        \end{equation*}
+    \paragraph{1.3.2}\quad\\
+        $2^{n-1}$
+    \paragraph{1.3.3}\quad\\
+        设 $\vert{A}\vert = n$ . 若 $n$ 是奇数, 则 $A$ 的任意一个子集 $B$ , 其补集 $B^c$ 的奇偶性和 $B$ 相反, 故奇子集个数等于偶子集.\\
+        若 $n$ 是偶数, 则可以认为 $A$ 是由具有 $n - 1$ 个元素的集合 $A'$ 添加了元素 $\alpha$ 所得 ($\alpha \notin A'$). $A$ 的子集可以分为两类: 含 $\alpha$ 的和不含 $\alpha$ 的.\\
+        其中, 不含 $\alpha$ 的那一类就是 $A'$ 的子集, 已经证明 $A'$ 的奇子集等于偶子集. 含有 $\alpha$ 的那一类子集, 偶(奇)子集可以看作是 $A'$ 的奇(偶)子集添加 $\alpha$ 所得, 则偶子集还是等于奇子集.\\
+        故 $A$ 的偶子集等于集子集
+    \paragraph{1.5.2}\quad \\
+        $5 \times 4 \times 3 = 60$
+    \paragraph{1.8.2}\quad 
+        % Please add the following required packages to your document preamble:
+        % \usepackage{multirow}
+        \begin{table}[h]
+        \centering
+        \caption{$n \choose k$对应表}
+        \label{my-label}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{\multirow{2}{*}{$n \choose k$}} & \multicolumn{6}{c|}{n} \\ \cline{3-8} 
+        \multicolumn{2}{|c|}{}                               & 0 & 1 & 2 & 3 & 4 & 5  \\ \hline
+        \multirow{6}{*}{k}                & 0                & 1 & 1 & 1 & 1 & 1 & 1  \\ \cline{2-8} 
+                                        & 1                &   & 1 & 2 & 3 & 4 & 5  \\ \cline{2-8} 
+                                        & 2                &   &   & 1 & 3 & 6 & 10 \\ \cline{2-8} 
+                                        & 3                &   &   &   & 1 & 4 & 10 \\ \cline{2-8} 
+                                        & 4                &   &   &   &   & 1 & 5  \\ \cline{2-8} 
+                                        & 5                &   &   &   &   &   & 1  \\ \hline
+        \end{tabular}
+        \end{table}
+    \paragraph{1.8.12}\quad \\
+        (a) $\emptyset$\\
+        (b) $\{n: n = 10 * k, k \in \mathbb{Z}\}$
+    \paragraph{1.8.13}\quad\\
+        $\{a,c\}, \{b,c\}, \{a, d\}, \{b, d\}, \{a, e\}, \{b, e\}, \{a, b, c\}, \{a, b, d\}, \{a, b, e\}$
+    \paragraph{1.8.17}\quad\\
+        $A \cup (B \cap C) = (A \cap B) \cup (A \cap C) = (A \cap B) \cup C$
+    \paragraph{1.8.19}\quad\\
+        \begin{equation*}
+            \begin{split}
+                &((A \setminus B) \cup (B \setminus A)) \cap C = ((A \setminus B) \cap C) \cup ((B \setminus A) \cap C)\\
+                = & ((A \cap C) \setminus (B \cap C)) \cup ((B \cap C) \setminus (A \cap C))\\
+                = & (((A \cap C) \setminus (B \cap C)) \cup (B \cap C)) \setminus (((A \cap C) \setminus (B \cap C)) \cup (A \cap C))\\
+                = & (((A \cap C) \cup (B \cap C)) \setminus (B \cap C)) \setminus ((A \cap C) \setminus ((B \cap C) \cup (A \cap C))\\
+                = & ((A \cap C) \cup (B \cap C)) \setminus (A \cap B \cap C)
+            \end{split}
+        \end{equation*}
+    \paragraph{1.8.23}\quad\\
+        $\forall n \in \mathbb{N}^+$ , $\exists k \in \mathbb{N}$ , $\text{s.t. } 2^k \le n < 2^{k + 1}$;\\
+        令 $n_k = n$ , 取 $a_k \in \mathbb{N}^+$ , $a_k \le 9$ , $\text{s.t. } a_k 2^k \le n_k < (a_k + 1)2^k$;\\
+        令 $n_{k - 1} = n_k - a_k2^k$ , 同样的方法得到 $a_{k - 1}$;\\
+        重复上面步骤, 得到 $a_{k-2}, \cdots , a_0$;\\
+        由此我们求出 $\{a_k, a_{k-1}, \cdots, a_0\}$ , $\text{s.t. } n = \sum^{k}_{m=0} a_m 2^m$ , 这就是 $n$ 的二进制表示, 其唯一性是显然的. 假设 $\{a_k, a_{k-1}, \cdots, a_0\}$ , $\{b_k, b_{k-1}, \cdots, b_0\}$ 都是 $n$ 的二进制表示, $\{a_k, a_{k-1}, \cdots, a_0\} \neq \{b_k, b_{k-1}, \cdots, b_0\}$ , 则 $\sum^{k}_{m=0} a_m 2^m - \sum^{k}_{m=0} b_m 2^m \neq 0$ , 而 $n$ 不可能有两个不同值, 矛盾.
+    \paragraph{1.8.33}\quad\\
+        \begin{equation*}
+            \begin{split}
+                & \binom{n - 2}{k} + 2\binom{n - 2}{k - 1} + \binom{n - 2}{k - 2}\\
+                = & \Biggl(\binom{n-2}{k} + \binom{n - 2}{k - 1} \Biggl) + \Biggl(\binom{n - 2}{k - 1} + \binom{n - 2}{k - 2}\Biggl)\\
+                = & \binom{n - 1}{k} + \binom{n - 1}{k - 1} = \binom{n}{k}
+            \end{split}
+        \end{equation*}
+    \paragraph{补充1}\quad\\
+        若 $b \notin \mathbb{N}$ , 整数解数目为$0$组;\\
+        反之 , 整数解数目为 $\frac{(b + n)!}{b!}$ 组;
+    \paragraph{补充2}\quad\\
+        若 $b \notin \mathbb{N}$ 或 $b < n + 1$ , 整数解数目为$0$组;\\
+        反之 , 整数解数目为 $\frac{(b - 1)!}{(b - n - 1)!}$ 组;
+\end{document}										%结束正文
