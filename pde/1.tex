@@ -80,7 +80,15 @@
 
     \paragraph{3} Friedrichs不等式在无界区域下不成立的例子 
     \[
-        f(x) = 1
+        f(x) = 
+        \begin{cases}
+            0, & -1 \le x \le 0\\
+            1, & x > 0
+        \end{cases} ,
+        \quad
+        f^h(x) = \int^{}_{\Omega} w_h(x - y) f(y) dy
     \]
+    其中 $w_h(x)$ 是半径为 $h$ 的磨光核, $\Omega = \{x \ge -1\}$ .
 
+    显然, Friedrichs不等式左边的积分 $\int^{}_{\Omega} \vert{f^h}\vert^2 dx$ 发散, 而右边的积分 $\int^{}_{\Omega}\vert{\frac{\partial f^h}{\partial x}}\vert^2 dx$ 收敛, 不可能存在常数使不等式成立.
 \end{document}										%结束正文
