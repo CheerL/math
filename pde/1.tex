@@ -1,0 +1,86 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}							%中页脚
+        %\rfoot{林陈冉}	 						 		%右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{tikz}
+    \usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+    \title{偏微分方程第一次作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{1}
+        Weierstrass函数的例子是 
+        \[
+            f(x) = \sum^{\infty}_{0} a^n \cos (b^n \pi x)
+        \]
+        其中 $0 < a < 1$ , $b > 0$ 且为奇数, $ab > 1 + \frac{3}{2}\pi$ .
+
+        首先说明连续性. 设 $f_n(x) = a^n \cos (b^n x)$ , 对 $\forall x$ , $f_n(x) < a^n$ , 而 $\sum^{\infty}_{0} a^n < \infty$ , 则 $f(x) < \infty$, 可知这个级数一致收敛, 又由每一个 $f_n$ 连续可知 $f$ 连续.
+        
+        再说明不可导. (其实说明不来) 若 $f(x)$ 可导, 
+        \[
+            f'(x) = \sum^{\infty}_{n=0} f_n'(x) = \sum^{\infty}_{n=0} - (ab)^n \sin (b^n x)
+        \]
+        但 $ab > 1 + \frac{3}{2} \pi$ , 好像这个级数不收敛?
+
+    \paragraph{2}
+        Holder不等式等号成立的条件: 
+        \begin{itemize}
+            \item $u(x) = 0$ 或 $v(x)=0$;
+            \item $\exists k > 0$ , $\vert{u(x)}\vert^p = k \vert{v(x)}\vert^q$ 几乎处处成立.
+        \end{itemize}
+
+        第一个情况显然成立, 考虑第二种情况. 从定理证明可知, 只要考虑什么时候 
+        \[
+            s_1 t_1 = \int^{t_1}_{0} t^{p - 1}dt + \int^{s_1}_{0} s^{q - 1}ds
+        \]
+        容易知道等号当且仅当 $t_1^p = s_1^q$ 时成立.
+        
+        若该式几乎处处成立, 则有 
+        \[
+            \int^{}_{\Omega}s_1(x) t_1(x)dx = \frac{\int^{}_{\Omega} t_1(x)^pdx}{p} + \frac{\int^{}_{\Omega} s_1(x)^qdx}{q} = 1
+        \]
+        若否则这个积分严格小于1. 又由 
+        \[
+            t_1(x) = \frac{\vert{u(x)}\vert}{(\int^{}_{\Omega} \vert{u(x)^p}\vert dx)^{\frac{1}{p}}} , 
+            \quad 
+            s_1(x) = \frac{\vert{v(x)}\vert}{(\int^{}_{\Omega} \vert{v(x)^q}\vert dx)^{\frac{1}{q}}}
+        \]
+        可得 
+        \[
+            \vert{u(x)}\vert^p = \frac{\int^{}_{\Omega} \vert{u(x)^p}\vert dx}{\int^{}_{\Omega} \vert{v(x)^q}\vert dx} \vert{v(x)}\vert^q
+        \]
+        上式等价于 $t_1^p = s_1^q$ , 是Holder不等式等号成立的情况2.
+
+    \paragraph{3} Friedrichs不等式在无界区域下不成立的例子 
+    \[
+        f(x) = 1
+    \]
+
+\end{document}										%结束正文
