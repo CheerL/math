@@ -1,0 +1,417 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}							%中页脚
+        %\rfoot{林陈冉}	 						 		%右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{tikz}
+    \usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+    \title{偏微分方程第3周作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    %\numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{1.2}\quad
+        令 
+        $$
+            v(x,t) = 
+            \begin{cases}
+                -\infty, &\text{if }t=ax\\
+                0, &\text{else}
+            \end{cases}
+        $$
+        那么可以得到
+        \[
+            \begin{split}
+                \langle{u},{\frac{\partial \varphi}{\partial t}}\rangle
+                & = \int^{\infty}_{-\infty} \int^{\infty}_{-\infty} u(x, t)\frac{\partial \varphi}{\partial t}(x,t)dt dx\\
+                & = \int^{\infty}_{-\infty} \int^{ax}_{-\infty} \frac{\partial \varphi}{\partial t}(x,t)dt dx\\
+                & = \int^{\infty}_{-\infty} \varphi(x,ax)dx\\
+                & =  \int^{\infty}_{-\infty} \int^{\infty}_{-\infty} -v(x, t)\varphi(x,t)dt dx\\
+                & = -\langle{v},{\varphi}\rangle
+            \end{split}
+        \]
+        即 $u_t = v$ .
+
+        当 $a = 0$ , $u_x(x,t) \equiv 0$ , $u_x \neq u_t$ .
+
+        当 $a > 0$ , 
+        \[
+            u(x,t) =
+            \begin{cases}
+                1, &\text{if }x \ge t/a\\
+                0, &\text{else}
+            \end{cases}
+        \]
+        那么类似上述过程可以求得 
+        \[
+            u_t(x, t) =
+            \begin{cases}
+                \infty, &\text{if }x = t/a\\
+                0, &\text{esle}
+            \end{cases}
+        \]
+        故 $u_x \neq u_t$.
+
+        当 $a < 0$ , 
+        \[
+            u(x,text) =
+            \begin{cases}
+                1, &\text{if }x \le t/a\\
+                0, &\text{else}
+            \end{cases}
+        \]
+        那么类似的, 可以求得
+        \[
+            u_t(x, t) =
+            \begin{cases}
+                -\infty, &\text{if }x = t/a\\
+                0, &\text{esle}
+            \end{cases}
+        \]
+        故 $u_x = u_t$.
+
+        综上, 当 $a < 0$ , $u_x = u_t$.
+    \paragraph{1.3}\quad 
+         $\forall c \in \mathbb{R}$ , 添加初值条件 $y(0) = c$ , 方程转化为
+         \begin{equation}\label{e1}
+             \begin{split}
+                 y' - y & = 0\\
+                 y(0) & = c
+             \end{split}
+         \end{equation}
+         由定理12可知(\ref{e1})解唯一. 容易验证, $y(x) = C e^x$ 是(\ref{e1})的解, 且 $y(x) \in \mathcal{D}(\mathbb{R}) \subset \mathcal{D}'(\mathbb{R})$ .
+
+         改变不同的初值条件, 可得所有满足 $y' -y = 0$ 的 $y$ 形如 $y(x) = C e^x$ .
+    \paragraph{1.4}\quad 
+        (题中未说明定义域, 认为 $\mathbb{R}$ ) 若 $u$ 是 $\mathcal{L}u(x)$ 的基本解, 则 $\mathcal{L}u(x) = \delta(x-x_0)$ . 设 
+        $h_{x_0}(x) = \int^{\infty}_{-\infty} \delta(x-x_0)dx $ . 特别的, 一维时可以显式写出
+        $
+            h_{x_0}(x) =
+            \begin{cases}
+                1, &\text{ if }x \ge x_0\\
+                0, &\text{else}
+            \end{cases}
+        $ . 
+        \[
+            \mathcal{L}u(x) = \frac{d}{dx}(\frac{du}{dx} - u)(x) = \delta(x-x_0)
+        \]
+        则 
+        \[
+            \frac{du}{dx}(x) - u(x)= h_{x_0}(x) + C_1
+        \]
+        可以解得 
+        \[
+            \begin{split}
+                u(x) 
+                & = C_2 e^{-x} +  e^{-x} \int^{x}_{-\infty} e^t(h_{x_0}(x) + C_1)dt\\
+                & = C_2 e^{-x} + C_1 + e^{-x} \int^{x}_{-\infty} e^t h_{x_0}(x)dt\\
+                & = C_2 e^{-x} + C_1 + e^{-x} \int^{x}_{x_0} e^t dt\\
+                & = (C_2 - e^{x_0}) e^{-x} + C_1 + 1
+            \end{split}
+        \]
+        故基本解为 $(C_2 - e^{x_0}) e^{-x} + C_1 + 1$ (当考虑更高维的情形时, 基本解应该是 $C_2 e^{-x} + C_1 + e^{-x} \int^{x}_{-\infty} e^t h_{x_0}(x)dt$ ).
+    \paragraph{1.5}\quad 
+        (题中未说明定义域, 认为 $\mathbb{R}^2$ ) 若 $u$ 是 $\mathcal{L}u(x,y)$ 的基本解, 则 $\mathcal{L}u(x,y) = \delta(x-x_0,y-y_0)$ . 
+        \[
+            \mathcal{L}u(x,y) = (\frac{d}{dx} - \frac{d}{dy})(\frac{d}{dx} - \frac{d}{dy})u(x,y) = \delta(x-x_0,y-y_0)
+        \]
+        则 
+        \[
+            (\frac{d}{dx} - \frac{d}{dy})u(x,y) = \int^{x}_{1} \delta(t-x_0, -t+y_0+x+y) dp dt + f_1(x+y) = h(x,y)
+        \]
+        其中 $f_1$ 是任意函数, 记这个解为 $h(x,y)$ . 继续解可得
+        \[
+            \begin{split}
+                u(x,y)
+                & = \int^{x}_{1} h(t, t-x+y) dt + f_2(x+y)\\
+                & = \int^{x}_{1} \biggl(\int^{t}_{1} \delta(p-x_0, -p+y_0+2t-x+y) dp + f_1(2t-x+y)\biggl) dt + f_2(x+y)\\
+                & = h(x,y) + g(x,y)
+            \end{split}
+        \]
+        其中 $f_2$ 是任意函数, $g(x,y) = \int^{x}_{1} f_1(2t-x+y) dt + f_2(x+y)$ , $h(x,y) = \int^{x}_{1} \int^{t}_{1} \delta(p-x_0, -p+y_0+2t-x+y) dp dt$, 更具体的说 
+        \[
+            h(x,y) =
+            \begin{cases}
+                1, &\text{ if }(x,y) \in \Omega\\
+                0, &\text{ else}
+            \end{cases} 
+        \]
+        其中 $\Omega = \{(x,y)\in \mathbb{R}^2:x \ge 2x_0, x+y \ge 2x_0 -y_0, x-y \ge -2x_0 + y_0 + 2\}$ . 
+        
+        为了满足 $y<0$ 时 $u(x,y) = 0$ ,则要求 $g = -h + k$ , 其中 $\forall y < 0$ , $k(x,y) = 0$ . 等式两边分别对 $x, y$ 求偏导(以下导数都是在广义下)
+        \begin{equation}\label{e2}
+            \begin{split}
+                f_1(x+y) + f_1(-x+y+2) + f'_2(x+y) & = \frac{\partial}{\partial x}(-h + k)(x,y)\\
+                f_1(x+y) - f_1(-x+y+2) + f'_2(x+y) & = \frac{\partial}{\partial y}(-h + k)(x,y)
+            \end{split}
+        \end{equation}
+        两式相减可得 
+        \[
+            \begin{split}
+                & f_1(-x+y+2) = \frac{1}{2}(\frac{\partial}{\partial x} - \frac{\partial}{\partial y})(-h + k)(x,y)\\
+                \Rightarrow & f_1(x) = \frac{1}{2}(\frac{\partial}{\partial x} - \frac{\partial}{\partial y})(-h + k)(t, t+x-2) , \forall t \in \mathbb{R}
+            \end{split}
+        \]
+        再考虑 $f_2$ . 将(\ref{e2})中两式相加, 可得 
+        \[
+            \begin{split}
+                & f'_2(x+y) = \frac{1}{2} (\frac{\partial}{\partial x} + \frac{\partial}{\partial y})(-h + k)(x, y) - f_1(x+y)\\
+                \Rightarrow & f'_2(x) = \frac{1}{2} (\frac{\partial}{\partial x} + \frac{\partial}{\partial y})(-h + k)(t, x-t) - f_1(x) , \forall t \in \mathbb{R}
+            \end{split}
+        \]
+        
+        $t$ 的任意性要求, 对于几乎每个固定的 $x$ , 存在常数 $C_1,C_2$ 使下面等式对 $\forall t \in \mathbb{R}$ 成立
+        \[
+            \begin{split}
+                (\frac{\partial}{\partial x} - \frac{\partial}{\partial y})(-h + k)(t, t+x-2) & \equiv C_1\\
+                (\frac{\partial}{\partial x} + \frac{\partial}{\partial y})(-h + k)(t, x-t) & \equiv C_2
+            \end{split}
+        \]
+        容易知道 $k \equiv 0$ , 上式是可以满足的. 已知 $\forall y < 0$ , $k(x,y) = 0$ , 可得 $\forall x \in \mathbb{R}$ 
+        \[
+            \begin{split}
+                & (\frac{\partial}{\partial x} - \frac{\partial}{\partial y})k(t, t+x-2) = (\frac{\partial}{\partial x} - \frac{\partial}{\partial y})k(-x, -2) = 0 , \forall t \in \mathbb{R}\\
+                \Rightarrow & (\frac{\partial}{\partial x} - \frac{\partial}{\partial y})k(a, b) = (\frac{\partial}{\partial x} - \frac{\partial}{\partial y})k(a, a+(b-a+2)-2) = 0 , \forall (a,b) \in \mathbb{R}^2\\
+                \Rightarrow & \partial_x k \equiv \partial_y k
+            \end{split}
+        \]
+        同理可得 $\partial_x k \equiv -\partial_y k$ , 故 $\partial_x k \equiv \partial_y k \equiv 0 \Rightarrow k \equiv 0$
+
+        那么 $g = -h + k = -h$ , 基本解为 $u = g + h \equiv 0$
+    \paragraph{1.6}\quad 
+        \[
+            \begin{split}
+                \frac{\partial E}{\partial x_i} & = \frac{\partial E}{\partial r} \frac{\partial r}{\partial x_i} = \frac{\sin (\sqrt{c}r)\sqrt{c}r + \cos (\sqrt{c}r)}{4 \pi r^3}x_i\\
+                \frac{\partial^2 E}{\partial x_i^2} & = \frac{\sqrt{c} r \sin \left(\sqrt{c} r\right)+\cos \left(\sqrt{c} r\right)}{4 \pi  r^3}+\frac{\left(\left(c r^2-3\right) \cos \left(\sqrt{c} r\right)-3 \sqrt{c} r \sin \left(\sqrt{c} r\right)\right)}{4 \pi  r^5} x_i^2\\
+                \Delta E & = \sum^{n}_{i=1} \frac{\partial^2 E}{\partial x_i^2} = \frac{c r^2 \cos \left(\sqrt{c} r\right)-2 \sqrt{c} r \sin \left(\sqrt{c} r\right)-2 \cos \left(\sqrt{c} r\right)}{4 \pi  r^3} 
+            \end{split}
+        \]
+        若 $E$ 是 $\Delta + c$ 的基本解, $\forall \varphi \in \mathcal{D}(\mathbb{R}^n)$
+        \[
+            \langle{(\Delta + c)E},{\varphi}\rangle = \langle{E},{(\Delta + c)\varphi}\rangle = \langle{E},{\Delta \varphi}\rangle + c \langle{E},{\varphi}\rangle
+        \]
+        $E(x,x_0)$ 是局部可和的, 则 
+        \[
+            \begin{split}
+                \langle{E},{\Delta \varphi}\rangle 
+                & = \int^{}_{\mathbb{R}^n} E(x,x_0) \Delta \varphi(x) dx\\
+                & = \lim_{\varepsilon \rightarrow 0} \int^{}_{\mathbb{R}^n \setminus Q^{x_0}_\varepsilon} E(x,x_0) \Delta \varphi(x) dx
+            \end{split}
+        \]
+        其中 $Q^{x_0}_{\varepsilon}$ 表示中心在 $x_0$ , 半径为 $\varepsilon$ 的球. 使用格林公式 
+        \[
+            \begin{split}
+                & \quad \int^{}_{\mathbb{R}^n \setminus Q^{x_0}_\varepsilon} E(x,x_0) \Delta \varphi(x) dx\\
+                & = \int^{}_{\mathbb{R}^n \setminus Q^{x_0}_\varepsilon} \Delta E(x,x_0) \varphi(x) dx 
+                + \int^{}_{\partial Q^{x_0}_\varepsilon} \biggl(E \frac{\partial\varphi}{\partial\nu'} - \varphi \frac{\partial E}{\partial\nu'}\biggl)d \nu'
+            \end{split}
+        \]
+        已知在 $\mathbb{R}^n \setminus {x_0}$ 中, $(\Delta + c)E \equiv 0$ , 则
+        \[
+            \begin{split}
+                & \int^{}_{\mathbb{R}^n \setminus Q^{x_0}_\varepsilon} \Delta E(x,x_0) \varphi(x) dx\\
+                & = \int^{}_{\mathbb{R}^n \setminus Q^{x_0}_\varepsilon} (\Delta + c) E(x,x_0) \varphi(x) dx - c \int^{}_{\mathbb{R}^n \setminus Q^{x_0}_\varepsilon} E(x,x_0) \varphi(x) dx\\
+                & = - c \int^{}_{\mathbb{R}^n \setminus Q^{x_0}_\varepsilon} E(x,x_0) \varphi(x) dx = -c \langle{E},{\varphi}\rangle
+            \end{split}
+        \]
+        而另一个积分 
+        \[
+            \int^{}_{\partial Q^{x_0}_\varepsilon} \biggl(E \frac{\partial \varphi}{\partial \nu'} - \varphi \frac{\partial E}{\partial \nu'}\biggl) = \int^{}_{\partial Q^{x_0}_\varepsilon} E \frac{\partial \varphi}{\partial \nu'}d\nu' - \int^{}_{\partial Q^{x_0}_\varepsilon} \varphi \frac{\partial E}{\partial \nu'}d\nu' 
+        \]
+        其中 
+        \[
+            \begin{split}
+                \Biggl\vert{\int^{}_{\partial Q^{x_0}_\varepsilon} E \frac{\partial \varphi}{\partial \nu'}d\nu'}\Biggl\vert 
+                & \le \vert C(\varepsilon) \vert \int^{}_{\partial Q^{x_0}_\varepsilon} \bigg\vert \frac{\partial \varphi}{\partial \nu'}\bigg\vert d\nu'\\
+                & \le \vert C(\varepsilon) \vert \frac{1}{4 \pi \varepsilon^3} \max_{x \in \partial Q^{x_0}_\varepsilon} \bigg\vert \frac{\partial \varphi}{\partial \nu'}(x)\bigg\vert\\
+                & \le K \frac{\vert C(\varepsilon)\vert }{\varepsilon^3}
+            \end{split}
+        \]
+        $C(\varepsilon)$ 是 $E(x, x_0)$ 在这个球面上的取值, $K$ 是一个与 $\varepsilon$ 无关的常数. 显然当 $\varepsilon \rightarrow 0 $, $C(\varepsilon)/\varepsilon^3 \rightarrow 0$ , 即 $\big\vert{\int^{}_{\partial Q^{x_0}_\varepsilon} E \frac{\partial \varphi}{\partial \nu'}d\nu'}\big\vert \rightarrow 0$ . 另外 
+        \[
+            \begin{split}
+                \lim_{\varepsilon \rightarrow 0} \int^{}_{\partial Q^{x_0}_\varepsilon} \varphi \frac{\partial E}{\partial \nu'}d\nu' 
+                & = \lim_{\varepsilon \rightarrow 0} \frac{\sin (\sqrt{c}r)\sqrt{c}r + \cos (\sqrt{c}r)}{4 \pi r^2} \int^{}_{\partial Q^{x_0}_\varepsilon} \varphi d\nu'\\
+                & = \lim_{\varepsilon \rightarrow 0} \frac{\sin (\sqrt{c}r)\sqrt{c}}{4 \pi r} \int^{}_{\partial Q^{x_0}_\varepsilon} \varphi d\nu'\\
+                & =  -\varphi(x_0)
+            \end{split}
+        \]
+        故 
+        \[
+            \begin{split}
+                \langle{(\Delta + c)E},{\varphi}\rangle
+                & = \langle{E},{\Delta \varphi}\rangle + c \langle{E},{\varphi}\rangle\\
+                & = -c \langle{E},{\varphi}\rangle + c \langle{E},{\varphi}\rangle + \lim_{\varepsilon \rightarrow 0} \int^{}_{\partial Q^{x_0}_\varepsilon} E \frac{\partial \varphi}{\partial \nu'}d\nu' - \lim_{\varepsilon \rightarrow 0} \int^{}_{\partial Q^{x_0}_\varepsilon} \varphi \frac{\partial E}{\partial \nu'}d\nu'\\
+                & = \varphi(x_0) = \langle{\delta(x-x_0)},{\varphi}\rangle
+            \end{split}
+        \]
+        由此, 证明了 $E(x,x_0)$ 是 $\Delta + c$ 的基本解.
+        
+        \[
+            \int^{b}_{a} f(x) dx = \int^{b}_{a} f(t) dt = \int^{b}_{a} f(\varepsilon) d\varepsilon
+        \]
+    \paragraph{1.10}\quad 
+        a) 设 $f$ 在 $x_0$ 点处不连续, 则 $\mathcal{D}_x f(x_0) = \infty$ 或 $-\infty$ .
+        
+        若 $f$ 的不连续点 $x_0$ 孤立, 存在区间 $\varepsilon > 0$ , s.t. $(x_0-\varepsilon, x_0 + \varepsilon)$ 中只有唯一的不连续点, 则在这个区间上
+        $$\mathcal{D}_x f(x) = f'_L(x) + f'_R(x) + \delta(x-x_0)$$
+        其中
+        $f'_L(x) = \begin{cases}f'(x), &\text{ if }x_0 - \varepsilon < x < x_0\\0, &\text{ if }x_0 \le x < x_0 + \varepsilon\end{cases}$ , 
+        $f'_L(x) = \begin{cases}0, &\text{ if }x_0 - \varepsilon < x \le x_0\\f'(x), &\text{ if }x_0 < x < x_0 + \varepsilon\end{cases}$
+        
+        $\forall u \in C^{\infty}_0((0,1))$
+        \[
+            \begin{split}
+                \Vert{f-u}\Vert
+                & = \biggl(\int^{1}_{0} \vert{\mathcal{D}_x (f-u)}\vert^2 dx \biggl)^{\frac{1}{2}}\\
+                & \ge \biggl(\int^{x_0+\varepsilon}_{x_0-\varepsilon} \vert{\mathcal{D}_x (f-u)}\vert^2 dx \biggl)^{\frac{1}{2}}\\
+                & = \biggl(\int^{x_0+\varepsilon}_{x_0-\varepsilon} \vert{f'_L(x) + f'_R(x) + \delta(x-x_0) - \mathcal{D}_x u(x)}\vert^2 dx \biggl)^{\frac{1}{2}}\\
+                & \ge \biggl(\int^{x_0+\varepsilon}_{x_0-\varepsilon} \big(\vert{f'_L(x) + f'_R(x) - \mathcal{D}_x u(x)}\vert - \vert{\delta(x-x_0)}\vert\big)^2 dx \biggl)^{\frac{1}{2}}\\
+                & \ge \biggl(\int^{x_0+\varepsilon}_{x_0-\varepsilon} \vert{\delta(x-x_0)}\vert^2 dx \biggl)^{\frac{1}{2}} = 1
+            \end{split}
+        \]
+
+        若 $f$ 的不连续点 $x_0$ 不孤立 , 则存在区间 $(a,b)$ , $\forall x in (a,b)$ , $\mathcal{D}_x f(x)  = \pm\infty$ . 那么 $\forall u \in C^{\infty}_0((0,1))$
+        \[
+            \Vert{f-u}\Vert \ge \biggl(\int^{b}_{a} \vert{\mathcal{D}_x (f-u)}\vert^2 dx \biggl)^{\frac{1}{2}} \ge \infty
+        \]
+
+        故若 $f$ 不连续, $f \notin \stackrel{\circ}{H^1}((0,1))$ .
+
+        b) 是的. 若 $f$ 连续, 则 $\max\limits_{0<x<1}\vert{\mathcal{D}_x f(x)}\vert < \infty$ . 显然 $f^h \in C^{\infty}_0((0,1))$ , 且由磨光子性质, 对 $\forall \varepsilon > 0$ , $\exists h > 0$ , 使 $\Vert{\mathcal{D}_x f - (\mathcal{D}_x f)^h}\Vert_{L_2} < \varepsilon$ .
+        \[
+            \begin{split}
+                \Vert{f-f^h}\Vert
+                & = \Vert{\mathcal{D}_x f - \mathcal{D}_x f^h}\Vert_{L_2}\\
+                & = \Vert{\mathcal{D}_x f - (\mathcal{D}_x f)^h}\Vert_{L_2}
+                < \varepsilon
+            \end{split}
+        \]
+        故若 $f$ 连续, $f \in \stackrel{\circ}{H^1}((0,1))$ .
+    \paragraph{1.15}\quad 
+        由1.10可以知, 需要 $f$ 连续且 $f(1) = f(-1) = 0$, 容易得 $\alpha \ge 0, \beta = (\frac{1}{2} + k) \pi, k \in \mathbb{Z}$
+    \paragraph{1.16}\quad 
+        类似1.15, 要求 $f$ 连续且 $f(x) = 0$ , $\forall x \in \partial B^n_{1/2}(0)$ . 易知, 当 $\alpha \neq 0$, $f(x)$ 在0点不连续, 则 $\alpha = 0$ . 当 $\forall x \in \partial B^n_{1/2}(0)$ , $f(x) = \cos(\beta/2) = 0 \Rightarrow \beta = (1+2k)\pi$ . 故 $\alpha = 0, \beta = (1+2k)\pi, k \in \mathbb{Z}$
+
+    \paragraph{2.4}\quad
+        原方程的特征形式为 
+        \[
+            \xi_1 \xi_2 + (3x + y - z) \xi_1 \xi_3 + (3x - y + z)\xi_2\xi_3 = 0
+        \]
+        若为双曲形式, 则 
+        \[
+            3x + y - z \neq 0 , \quad 3x - y + z \neq 0
+        \]
+        故当 $x \neq \pm \frac{y-z}{3}$ , 方程是双曲型的.
+    \paragraph{2.5}\quad 
+        原方程的特征形式为 
+        \[
+            \xi_1^2 - y^2\xi_2^2 = 0
+        \]
+
+        a) 当在点 $(1,2)$ , 方程是双曲型的, 特征为 $2x \pm ty = c$ , $\forall c \in \mathbb{R}$ .
+
+        b) 当在点 $(1,0)$ , 方程是抛物型的, 特征为 $y = c$ , $\forall c \in \mathbb{R}$ .
+    \paragraph{2.6}\quad 
+        原方程的特征形式为 
+        \[
+            \xi_1\xi_2 - \xi_2^2 = 0
+        \]
+
+        a) 方程是双曲型的, 特征为 $x = c$ 或 $x - y = c$ , $\forall c \in \mathbb{R}$ .
+
+        b) 设 $u(x,y) = e^{px+qy}$ , 则原方程化为 
+        \[
+            (pq-q^2-p+q)u(x,y) = 0
+        \]
+        当 $p=q$ 或 $q=1$ 等式成立, 故通解为 
+        \[
+            u(x,y) = c_1 e^{px+py} + c_2 e^{px+y}
+        \]
+        其中 $c_1, c_2, p$ 是任意常数.
+    \paragraph{2.7}\quad 
+        原方程的特征形式为 
+        \[
+            2\xi_1^2 + \xi_1\xi_2 = 0
+        \]
+
+        a) 方程是双曲型的.
+
+        b) 特征为 $y = c$ 或 $x - 2y = c$ , $\forall c \in \mathbb{R}$ .
+
+        c) 设 $u(x,y) = e^{px+qy}$ , 则原方程化为 
+        \[
+            (2p^2+pq)u(x,y)=0
+        \]
+        那么 $p=0$ 或 $p=-\frac{1}{2}q$ 时等式成立, 故通解为
+        $$
+            u(x,y) = c_1 e^{qy} + c_2 e^{-\frac{1}{2}q(x-2y)}
+        $$
+        其中 $c_1, c_2, q$ 是任意常数.
+    \paragraph{2.8}\quad 
+        原方程的特征形式为 
+        \[
+            \xi_1^2 -2 \alpha \xi_1\xi_2 -3 \alpha^2 \xi_2^2 = (\xi_1 + \alpha \xi_2)(\xi_1 - 3 \alpha \xi_2) = 0
+        \]
+
+        a) 当 $\alpha \neq 0$ , 方程是双曲型的, 当 $\alpha = 0$ , 方程是抛物型的.
+
+        b) 当 $\alpha \neq 0$ , 特征为 $\alpha x - y = c$ 或 $3\alpha x + y = c$ , 故设变量 $x' = \alpha x - y$ , $y' = \alpha x + y$ 
+        \[
+            \begin{split}
+                u_{x} & = \alpha u_{x'} + 3\alpha u_{y'}, \quad
+                u_{y} = -u_{x'} + u_{y'}\\
+                u_{xx} & = \alpha^2 u_{x'x'} + 6 \alpha^2 u_{x'y'} + 9\alpha^2 u_{y'y'}\\
+                u_{xy} & = -\alpha u_{x'x'} -2\alpha u_{x'y'} + 3\alpha u_{y'y'}\\
+                u_{yy} & = u_{x'x'} -2 u_{x'y'} + u_{y'y'}
+            \end{split}
+        \]
+        则转化为标准型为 $u_{xx} -2 \alpha u_{xy} - 3 \alpha^2 u_{yy} + \alpha u_y + u_x = 4\alpha^2 u_{x'y'} + 4 \alpha u_{y'} = 0$
+
+        当 $\alpha = 0$ , 原式就是标准型 $u_{xx} + u_x = 0$
+
+        c) 当 $\alpha \neq 0$ , 设 $u(x,y) = e^{px'+qy'}$ (第二小题中的 $x',y'$), 则原方程化为 
+        \[
+            4 \alpha q (p+1) u(x',y') = 0
+        \]
+        当 $q = 0$ 或 $p = -1$ 等式成立, 故通解为 
+        \[
+            u(x',y') = c_1 e^{px'} + c_2 e^{-x'+qy'} 
+            = c_1 e^{\alpha p x - py} + c_2 e^{(q - 1)\alpha x + (q+1)y}
+        \]
+        其中 $c_1, c_2, p, q$ 是任意常数
+
+        当 $\alpha = 0$ , 设 $u(x,y) = e^{px+qy}$ , 则原方程化为 
+        \[
+            p(p+1)u(x,y) = 0
+        \]
+        当 $p = 0$ 或 $p = -1$ 等式成立, 故通解为 
+        \[
+            u(x,y) = c_1 e^{qy} + c_2 e^{-x+qy}
+        \]
+        其中 $c_1, c_2, q$ 是任意常数
+\end{document}										%结束正文

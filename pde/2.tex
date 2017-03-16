@@ -1,0 +1,139 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}							%中页脚
+        %\rfoot{林陈冉}	 						 		%右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{tikz}
+    \usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+    \title{偏微分方程第2周作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{1}\quad
+        对 $\forall \varphi \in C_0^{\infty}(\mathbb{R}^2)$ , 
+        \begin{equation*}
+            \begin{split}
+                \langle{u},{\frac{\partial^2 \varphi}{\partial x \partial y}}\rangle
+                & = \int^{\infty}_{-\infty}\int^{\infty}_{-\infty} u(x, y) \frac{\partial^2 \varphi}{\partial x \partial y} dx dy\\
+                & = \int^{1}_{-1}\int^{1}_{-1} \frac{\partial^2 \varphi}{\partial x \partial y} dx dy
+                  = \int^{1}_{-1}\int^{1}_{-1} \frac{\partial}{\partial x}(\frac{\partial \varphi}{\partial y}) dx dy\\
+                & = \int^{1}_{-1} \frac{\partial \varphi(1, y)}{\partial y} - \int^{1}_{-1}\frac{\partial \varphi(-1, y)}{\partial y} dy\\
+                & = \varphi(1, 1) - \varphi(1, -1) - \varphi(-1, 1) + \varphi(-1, -1)\\
+                & = \langle{\delta_{(1, 1)}},{\varphi}\rangle - \langle{\delta_{(1, -1)}},{\varphi}\rangle - \langle{\delta_{(-1, 1)}},{\varphi}\rangle + \langle{\delta_{(-1, -1)}},{\varphi}\rangle\\
+                & = \langle{\delta_{(1, 1)} - \delta_{(1, -1)} - \delta_{(-1, 1)} + \delta_{(-1, -1)}},{\varphi}\rangle
+            \end{split}
+        \end{equation*}
+        故 $u$ 的广义二阶导数 $\frac{\partial^2 u}{\partial x \partial y} = \delta_{(1, 1)} - \delta_{(1, -1)} - \delta_{(-1, 1)} + \delta_{(-1, -1)}$ .
+    \paragraph{2}\quad 
+        设 $u_t(x) = (4 \pi t)^{-\frac{1}{2}} e^{-\frac{x^2}{4t}}$ , 这是一个正态分布的密度函数, $\int^{\infty}_{-\infty}u_t(x) dx = 1$ . $\forall \varepsilon > 0$ , 当 $t$ 给定, $\exists c_t > 0$, $\text{s.t. } \int^{-c_t}_{-\infty} u_t(x) dx = \int^{\infty}_{c_t} u_t(x) dx < \varepsilon$ .
+        这样的 $c_t$ 的存在性是显然的, 且 $\lim_{t \rightarrow 0} c_t = 0$ .
+        
+        $\forall \varphi \in C_0^{\infty}(\mathbb{R})$ ,
+        \[
+            \int^{\infty}_{-\infty} u_t(x) \varphi(x) dx
+             = \int^{-c_t}_{-\infty} u_t(x) \varphi(x) dx
+             + \int^{c_t}_{-c_t} u_t(x) \varphi(x) dx
+             + \int^{\infty}_{c_t} u_t(x) \varphi(x) dx
+        \]
+
+        由 $\varphi \in C_0^{\infty}(\mathbb{R})$ , $\exists M > 0$ , $\text{s.t. }\vert{\varphi(x)}\vert < M$ , 则
+        \[
+            \Biggl\vert{\int^{-c_t}_{-\infty} u_t(x) \varphi(x) dx}\Biggl\vert
+            < M \Biggl\vert{\int^{-c_t}_{-\infty} u_t(x) dx}\Biggl\vert < M \varepsilon
+        \]
+        同理 $\vert{\int^{\infty}_{c_t} u_t(x) \varphi(x)}\vert < M \varepsilon$ . 
+        
+        同时, 由 $\varphi$ 连续, 对于这个 $\varepsilon$ , $\exists c > 0$ , $\text{s.t. } \forall x in (-c, c)$ , $\vert{\varphi(x) - \varphi(0)}\vert < \varepsilon$ . 当取足够小的 $t$ 令 $c_t < c$, 我们可以得到
+        
+        \begin{equation*}
+            \begin{split}
+                \Biggl\vert{\int^{\infty}_{-\infty} u_t(x) \varphi(x) dx - \varphi(0)}\Biggl\vert
+                & < \Biggl\vert{\int^{c_t}_{-c_t} u_t(x) \varphi(x) dx - \varphi(0)}\Biggl\vert + 2M \varepsilon\\
+                & = \Biggl\vert{\int^{c_t}_{-c_t} u_t(x) \big(\varphi(x) - \varphi(0)\big) dx - 2 \varepsilon \varphi(0)}\Biggl\vert + 2M \varepsilon\\
+                & < \varepsilon \Biggl\vert{\int^{c_t}_{-c_t} u_t(x) dx}\Biggl\vert + 2 \vert{\varphi(0)}\vert \varepsilon + 2 M \varepsilon\\
+                & < (1 + 2M + \vert{\varphi(0)}\vert) \varepsilon
+            \end{split}
+        \end{equation*}
+        由 $\varepsilon$ 充分小, 则 $\lim_{t \rightarrow 0} \langle{u_t},{\varphi}\rangle = \varphi(0) = \langle{\delta},{\varphi}\rangle$, 即 $u_t \rightarrow \delta$
+
+    \paragraph{3}\quad
+        考虑 $x = (x_1, \cdots, x_n) \in \mathbb{R}^n$
+        \begin{equation*}
+            \begin{split}
+                \int^{}_{\mathbb{R}^n} e^{-\vert{x}\vert^2} e^{i(x, \xi)} dx
+                & = \idotsint\limits_{\mathbb{R}^n} e^{\sum^{n}_{k = 1}(-x_k^2 + i x_k \xi_k)} dx_1 \cdots dx_n\\
+                & = \prod^{n}_{k = 1} \int^{\infty}_{-\infty} e^{-x_k^2 + i x_k \xi_k} dx_k\\
+                & = \prod^{n}_{k = 1} \int^{\infty}_{-\infty} e^{-(x_k + \frac{i \xi_k}{2})^2} e^{-\frac{\xi_k^2}{4}} dx_k\\
+                & = \prod^{n}_{k = 1} \sqrt{\pi} e^{-\frac{\xi_k^2}{4}}
+                  = \pi^{\frac{n}{2}} e^{-\frac{\vert{\xi}\vert^2}{4}}
+            \end{split}
+        \end{equation*}
+
+    \paragraph{4}\quad
+        $(1) \Rightarrow (2)$ 首先, $\forall f \in L^2$ 
+        \begin{equation*}
+            \begin{split}
+                \int^{}_{\mathbb{R}^n} \hat{f}^2(x) dx
+                & = \int^{}_{\mathbb{R}^n} \Bigg(\int^{}_{\mathbb{R}^n} f(y) e^{i(y,x)} dy\Bigg)^2 dx\\
+                & \le \int^{}_{\mathbb{R}^n} \int^{}_{\mathbb{R}^n} f(y)^2 e^{2i(y,x)} dy dx\\
+                & = \int^{}_{\mathbb{R}^n} f(y)^2 \Bigg(\int^{}_{\mathbb{R}^n} e^{2i(y,x)} dx\Bigg) dy
+            \end{split}
+        \end{equation*}
+        分析可知
+        \[
+            \int^{}_{\mathbb{R}^n} e^{2i(y,x)} dx = \prod^{n}_{k = 1} \int^{\infty}_{-\infty} e^{2iy_k x_k} dx_k \le 2^n
+        \]
+        则
+        \[
+            \int^{}_{\mathbb{R}^n} \hat{f}^2(x) dx \le 2^n \int^{}_{\mathbb{R}^n} f^2(x) dx < \infty
+        \]
+        即 $\hat{f} \in L^2$
+
+        已知 $\mathcal{D}^\alpha_x f \in L^2$ , 则 $\widehat{\mathcal{D}^\alpha_x f} \in L^2$ , 由定理可知 $\xi^\alpha \hat{f}(\xi) = \widehat{\mathcal{D}^\alpha_x f}$ , 故 $\xi^\alpha \hat{f}(\xi) \in L^2$ .
+
+        $(2) \Rightarrow (1)$ 类似的, $\forall f \in L^2$, 记 $f$ 的傅里叶逆变换为 $\check{f}$ , 可以证明 $\check{f} \in L^2$ . 已知 $\widehat{\mathcal{D}^\alpha_x f} = \xi^\alpha \hat{f}(\xi) \in L^2$ , 则其(精确到相差一个常系数意义下的)逆变换 $\mathcal{D}^\alpha_x f \in L^2$ 
+
+        $(2) \Leftrightarrow (3)$ $L^2$ 对线性运算法是封闭的, 故从 $(2)$ 得到 $(3)$ , 而同时 $(3)$ 是包含 $(2)$ 的, 这即证明了等价.
+
+        $(2) \Leftrightarrow (4)$
+        \begin{equation*}
+            \begin{split}
+                \int^{}_{\mathbb{R}^n} \big((1 + \vert{\xi}\vert^2)^{\frac{m}{2}} \hat{f}(\xi)\big)^2 d \xi 
+                & = \int^{}_{\mathbb{R}^n} (1 + \vert{\xi}\vert^2)^m \hat{f}^2(\xi) d \xi\\
+                & = \sum^{m}_{k = 1} {n \choose k}\int^{}_{\mathbb{R}^n} \vert{\xi}\vert^{2k} \hat{f}^2(\xi) d \xi\\
+                & = \sum^{m}_{k = 1} {n \choose k}\int^{}_{\mathbb{R}^n} \Big(\vert{\xi}\vert^{k} \hat{f}(\xi)\Big)^2 d \xi
+            \end{split}
+        \end{equation*}
+        
+        当 $(2)$ 成立, 则单独每项都是小于无穷的, 且项数也是有限的, 故和小于无穷, $(4)$ 成立. 
+        
+        当 $(2)$ 不成立, 则至少有一项是无穷, 由于每项都是非负的, 故和也是无穷, $(4)$ 不成立. 这即证明了等价.
+        
+        
+        
+\end{document}										%结束正文
