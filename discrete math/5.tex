@@ -1,0 +1,144 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}							%中页脚
+        %\rfoot{林陈冉}	 						 		%右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{tikz}
+    \usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+    \title{离散数学第5周作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    % \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{补充1}\quad 
+        不妨顺时针记这 $2n$ 个点为 $a_1,a_2, \cdots, a_{2n}$ , 设 $a_1$ 与 $a_m$ 相连, 由于不相交, 被 $a_1a_m$ 分割得到的两端圆弧上的点的连线不会跨过这条线, 故 $m$ 必定是偶数, 设 $m=2k$. 对于小于 $2k$ 的一侧, 连线方法有 $h_{k-1}$ 种, 另一侧为 $h_{n-k}$ 种, 故
+        \[
+            h_n = \sum^{n}_{k=1}h_{k-1}h_{n-k}
+        \]
+        令 $g_n = h_{n-1}$ , 则 $g_n = \sum^{n}_{k=1}g_k  g_{n-k}$ , 同时我们容易求得 $g_1=1, g_2=1, g_3=2$ , 由定义可知 $g_n$ 是 $n+1$ 个Catalan数, 那么 $h_n$ 是Catalan数.
+    \paragraph{补充2}\quad 
+        已知 $h_0 = 1, h_1 = -1, h_2=3, h_3=10$ , 由于 $h_n$ 是 $n$ 的3次多项式, $\Delta^{p+1}h_n =0$ , $c_{p+1} = 0$, 差分表如下, 可知 $c_0 =1, c_1 =-2, c_2=6, c_3 = -3, c_p=0(p \ge 4)$
+        \begin{table}[h]
+        \centering
+        % \caption{差分表}
+        \begin{tabular}{lllllll}
+        1 &    & -1 &    & 3 &   & 10 \\
+        & -2 &    & 4  &   & 7 &    \\
+        &    & 6  &    & 3 &   &    \\
+        &    &    & -3 &   &   &   
+        \end{tabular}
+        \end{table}
+
+        那么可以求得 
+        \[
+            h_n = {{n} \choose {0}} - 2 {{n} \choose {1}} + 6 {{n} \choose {2}} -3 {{n} \choose {3}} = - \frac{n^3}{2} + \frac{9 n^2}{2} - 6n + 1
+        \]
+        以及
+        \[
+            \sum^{n}_{k=0}h_n = c_0 {{n+1} \choose {1}} + c_1 {{n+1} \choose {2}} + c_2 {{n+1} \choose {3}} + c_3 {{n+1} \choose {4}} = -\frac{1}{8} (n^4-10n^3+7n^2+10n) + 1
+        \]
+        
+    \paragraph{补充3}\quad 
+        当 $k=1$, 
+        \[
+            \sum^{1}_{j=0} (-1)^{1-j} {{1} \choose {j}} h_{n+j} = h_{n+1}-h_n = \Delta h_n
+        \]
+        命题成立.
+
+        假设对命题对 $k$ 成立, 那么对 $k+1$
+        \[
+            \begin{split}
+                \Delta^{k+1} h_n 
+                & = \Delta^k h_{n+1} - \Delta^k h_n\\
+                & = \sum^{k}_{j=0} (-1)^{k-j} {{k} \choose {j}} h_{n+1+j}
+                    - \sum^{k}_{j=0} (-1)^{k-j} {{k} \choose {j}} h_{n+j}\\
+                & = \sum^{k+1}_{j=1} (-1)^{k+1-j} {{k} \choose {j-1}} h_{n+j}
+                    + \sum^{k}_{j=0} (-1)^{k+1-j} {{k} \choose {j}} h_{n+j}\\
+                & = h_{n+k+1} + (-1)^{k+1} h_n
+                    + \sum^{k}_{j=1} (-1)^{k+1-j} \left({{k} \choose {j}} + {{k} \choose {j-1}}\right) h_{n+j}\\
+                & = h_{n+k+1} + \sum^{k}_{j=1} (-1)^{k+1-j} {{k+1} \choose {j}} h_{n+j} + (-1)^{k+1} h_n\\
+                & = \sum^{k+1}_{j=0} (-1)^{k+1-j} {{k+1} \choose {j}} h_{n+j}
+            \end{split}
+        \]
+         由归纳法, 命题成立.
+    \paragraph{补充4}\quad 
+        $k$ 个元素的原像为 $A_1, \cdots, A_k$ , 都非空, 这样的映射有 $S^{\sharp}(p,k)$ 个. 另一方面, 这个映射个数相当于把 $p$ 个元素的几个划分为 $k$ 个非空几个的方法数为 $S(p,k)$ , 再进行全排列, 即说明了 
+        \[
+            S^{\sharp}(p,k) = k!S(p,k)
+        \]
+        
+    \paragraph{补充5}\quad \\
+        (a) $S(p,0) = 0 (p \ge 1), S(p,p)=1 (p \ge 0)$ ,  当 $n=1$ 时, $S(1,1) = 1 = 0!$ , 命题成立. 
+        
+        假设当 $n =k$ 时命题成立, 那么当 $n=k+1$ 时, 由 $S(p,k) = (p-1)S(p-1,k) + S(p-1,k-1)$
+        \[
+           S(n,1) = S(k+1,1) = k S(k,1) + S(k,0) = k(k-1)! = k! = (n-1)!
+        \]
+        由归纳法, 命题成立\\
+        (b) 当 $n=1$ , $S(1,0) = 0 = {{1} \choose {2}}$ , 当 $n=2$ , $S(2,1)=1={{2} \choose {2}}$.
+
+        假设当 $n=k$ 时命题成立, 
+        \[
+            S(n,n-1) = S(k+1,k) = kS(k,k) + S(k,k-1) = k + \frac{k(k- 1)}{2} = {{n} \choose {2}}
+        \]
+        由归纳法, 命题成立        
+    \paragraph{补充1}\quad 
+        若 $n$ 是偶数, 则分成 $\frac{n}{2}$ 个2, 从中选出 $k$ 个拆分为1, 那么有 $\frac{n}{2}-k$ 个2, $2k$ 个1, 拆分数为 $\frac{n}{2}+1$ .
+
+        若是奇数, 拆为 $\frac{n-1}{2}$ 个2和1个1, 也选 $k$ 个2继续拆, 这样有 $\frac{n-1}{2} + 1$ 种拆法.
+
+        综上有 $\lfloor\frac{n}{2}\rfloor + 1$ 种拆分
+    \paragraph{补充2}\quad 
+        \begin{equation}
+            nx_n+ (n-1)x_{n-1} + \cdots + x_1 = n
+        \end{equation}
+        \begin{equation}
+            (n-1)y_{n-1} + \cdots + y_1 = n-1            
+        \end{equation}
+        $p_n$ 等于(1)的非负整数解数, $p_{n-1}$ 等于(2)的非负整数解数, 容易知道(2)的任意一组解 $\{y_i\}$, 令 $x_i=y_{i-1}(i \ge 2)$ , $x_1=1$ , 这组解也满足(1), 故 $p_n \ge p_{n-1}$ .
+        
+        而 $x_1=n$ , $x_i = 0(i>1)$ 是(1)的解, 但构造不出对应的(2)的解, 故 $p_n > p_{n-1}$
+
+    \paragraph{补充3}\quad 
+        $S(8,0) = 0$ , $S(8,8) =1$ , 而 
+        \[
+            S(8,k) = \frac{1}{k!} \sum^{k}_{t=0} (-1)^t {{k} \choose {t}}(k-t)^8
+        \]
+        直接计算得 $S(8,1) = 1$ , $S(8,2)= 127$ , $S(8,3) = 966$ , $S(8,4) = 1701$ , $S(8,5) = 1050$ , $S(8,6) = 266$ , $S(8,7) = 28$
+        $$B_8 = \sum^{8}_{k=1} S(8,k) = 4140$$
+        
+    \paragraph{补充4}\quad 
+        考虑把 $(1,1)$ 映成 $(0,1)$ , $(1,-1)$ 映成 $(1,0)$ 的线性变换 $T \in L(\mathbb{R}^2)$ , 容易求得其矩阵形式为 
+        \[  
+            T = \frac{1}{2}
+            \begin{pmatrix}
+                1 & -1\\
+                1 & 1
+            \end{pmatrix}
+        \]
+        另外 $T \begin{pmatrix}2n\\0\end{pmatrix} = \begin{pmatrix}n\\n\end{pmatrix}$ , $T \begin{pmatrix}0\\0\end{pmatrix} = \begin{pmatrix}0\\0\end{pmatrix}$ . 这说明 $C_n$ 实际上是从 $(0,0)$ 到 $(n,n)$ 的仅使用下对角线矩形步的路径数.
+\end{document}										%结束正文

@@ -1,0 +1,149 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}							%中页脚
+        %\rfoot{林陈冉}	 						 		%右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{tikz}
+    \usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+    \title{离散数学第4周作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{4.2.7}\quad 
+        根据(4.5), 
+        \[
+            F_{a + b + 1} = F_{a+1} F_{b+1} + F_a F_b
+        \]
+        取 $a = b = n - 1$ , 则可得 
+        \[
+            F_{2+n-1} = F_n^2 + F_{n-1}^2
+        \]
+        这就是(4.2). 而当取 $a = n-1, b = n$ , 可得 
+        \[
+            F_{2n} = F_{n+1}F_n + F_n F_{n-1}
+        \]
+        这就是(4.3)
+    \paragraph{补充1}\quad
+         若 $n\mid m$ , $\exists k \in \mathbb{N}$ , $m = kn$ . 当 $k = 1$ , 原命题显然成立, 当 $k = 2$ , 由上面证明的(4.2)
+         \[
+             F_{2n} = F_n(F_{n+1} + F_{n-1})
+         \]
+         说明命题成立.
+
+         假设当 $F_n \mid F_{(k-1)n}$ , 则当 $m = kn$
+         \[
+             F_{k n} = F_{(k-1)n-1 + n + 1} = F_n F_{(k-1)n-1} + F_{(k-1)n} F_{n+1}
+         \]
+         则 $F_n \mid F_{kn}$ . 由归纳法, 原命题成立.
+    \paragraph{补充2}\quad 
+        当 $8 \mid n$ 时, $7 \mid F_n$ . 容易验证当 $1 \le n \le 7$ , $7 \nmid F_n$ 且 $7 \mid F_8$ . 由上一问, 已知 $7 \mid F_{8k}$ , 然后我们来证明当 $1 \le n \le 7$ , $F_{n + 8k} \mod 7 = F_n F_7^k \mod 7 \neq 0$ .
+        
+        当 $k = 1$ 
+        \[
+            F_{n+8} = F_{n-1}F_8 + F_n F_7
+        \]
+        这等价于 $F_{n+8} \mod 7 = F_n F_7 \mod 7$ , 那么由归纳法易得 
+        \[
+            F_{n + 8k} \mod 7 = F_n F_7^k \mod 7 = (F_n \mod 7)(F_7 \mod 7)^k \mod 7 \neq 0
+        \]
+        最后一个等号是由于7是素数. 那么我们就有 $\forall k \in \mathbb{N}$ , $7 \mid F_{8k}$ , $7 \nmid F_{8k + n}$ , $1 \le n \le 7$
+    \paragraph{补充3}\quad 
+        由上面几个题已知 $F_d$ 是 $F_m$ ,  $F_n$ 的公约数, 我们来说明它的最大性.
+    \paragraph{补充4}\quad 
+        特征方程为 
+        \[
+            x^3 - 3x + 2 = 0
+        \]
+        特征根为-2, 1, 1, 存在重根. 首先 $h_n = (-2)^n$ , $h_n = 1$ 是递推关系的两个解, 容易证明 $h_n = n$ 也是递推关系的解. 设一般解为 
+        \[
+            h_n = c_1 (-2)^n + c_2 n +c_3
+        \]
+        由 $h_0 = 1$ , $h_1 = 0$, $h_2 = 0$ , 解得 $c_1 = \frac{1}{9}$ , $c_2 = -\frac{2}{3}$ , $c_3 = \frac{8}{9}$ , 即一般解为 
+        \[
+            h_n = \frac{1}{9}\Big((-2)^n - 6n + 8\Big)
+        \]
+    \paragraph{补充1}\quad\\
+        (a) $g(x) = \sum^{\infty}_{n=0} c^n x^n= \frac{1}{1 - cx}$\\
+        (b) $g(x) = \sum^{\infty}_{n=0} \frac{x^n}{n!} = e^x$
+    \paragraph{补充2}\quad 
+        $g(x) = \sum^{\infty}_{n=0} n^3 x^n$ , 先考虑部分和 $\sum^{k}_{n=0} n^3 x^n$ . 
+        
+        已知 $$\sum^{k}_{n=0} x^n = \frac{x^{k+1}-1}{x-1} , \quad \sum^{k}_{n=0} nx^n = \frac{(kx-k-1)x^{k+1}+x}{(x-1)^2}$$ , 由此求出
+        \[
+            (x - 1) \sum^{k}_{n=0} n^2 x^n = k^2 x^{k+1} - \sum^{k}_{n=2} (2n-1) x^n - x 
+            = k^2 x^{k+1} - 2 \sum^{k}_{n=0} nx^n + \sum^{k}_{n=0} x^n
+        \]
+        可得 $$\sum^{k}_{n=0} n^2 x^n = \frac{x (x+1)-x^{k+1} (k^2 x^2-(2 k^2+2 k-1) x+(k+1)^2)}{(1-x)^3}$$ . 类似的 
+        \[
+            (x - 1) \sum^{k}_{n=0} n^3 x^n = k^3 x^{k+1} - \sum^{k}_{n=1} (3n^2-3n+1) x^n - x 
+            = k^3 x^{k+1} - 3 \sum^{k}_{n=0} n^2 x^n + 3 \sum^{k}_{n=0} n x^n - \sum^{k}_{n=0}x^n
+        \]
+        可得 
+        \[
+            \sum^{k}_{n=0} n^3 x^n = \frac{x ((k^3 (x-1)^3-3 k^2 (x-1)^2+3 k (x^2-1)-x (x+4)-1) x^k+ x^2+4x+1)}{(x-1)^4}
+        \]
+        当 $x < 1$ 则有 
+        \[
+            g(x) = \sum^{\infty}_{n=0} n^3 x^n = \frac{x (x^2+4 x+1)}{(x-1)^4}
+        \]
+    \paragraph{补充3}\quad 
+        该问题对应的生成函数为 
+        \[
+            g(x) = \sum^{\infty}_{n=0} \frac{x^{2n}}{(2n)!} \Bigg(\sum^{\infty}_{n=0} \frac{x^n}{n!}\Bigg)^3 = \frac{1}{2} (e^x + e^{-x}) e^{3x} = \sum^{\infty}_{n=1} (2^n+1)2^{n-1} \frac{x^n}{n!}
+        \]
+        故排列数为 $(2^n+1)2^{n-1}$ .
+    \paragraph{补充4}\quad 
+        把问题分解为4步
+        \begin{itemize}
+            \item \text{从9个不同的数中选$n$个, 形成$n$排列}
+            \item \text{从$n$个数字之间的$n-1$个空隙中选$k$个($k \le n-1$), 用于插入运算符}
+            \item \text{从4个不同的算符中选$k$个, 形成$k$排列, 填入上面的空格}
+            \item \text{所得结果对$k$从1到4(或到$n-1$)求和}
+        \end{itemize}
+        故$n$排列形成的表达式数目为 
+        \[
+            \sum^{\max \{4, n-1\}}_{k=1}{{9} \choose {n}}n! {{n-1} \choose {k}} {{4} \choose {k}}k!
+        \]
+    \paragraph{补充5}\quad 
+        $x^2 - 3x + 1 = 0$ 的根为 $x = \frac{1}{2} (3-\sqrt{5})$ 或 $x = 1/2 (3 + Sqrt[5])$ , 记作 $a,b$ . 设 $p,q$ 满足 
+        \[
+            \frac{p}{a-x} + \frac{q}{b-x} = \frac{1-x}{1-3x+x^2}
+        \]
+        解得 $p = \frac{1}{10} (5-\sqrt{5})$ , $q = \frac{1}{10} (5+\sqrt{5})$ , 则 
+        \[
+            g(x) = \frac{p}{a} \frac{1}{1-x/a} + \frac{q}{b} \frac{1}{1-x/b} = \frac{p}{a} \sum^{\infty}_{n=0} (x/a)^n + \frac{q}{b} \sum^{\infty}_{n=0} (x/b)^n = \sum^{\infty}_{n=0} \Big(\frac{p}{a^{n+1}} + \frac{q}{b^{n+1}}\Big)x^n
+        \]
+        故 
+        \[
+            a_n = \frac{p}{a^{n+1}} + \frac{q}{b^{n+1}} = \frac{1}{\sqrt{5}}\left(\frac{1 + \sqrt{5}}{2}  \left(1+\frac{1+\sqrt{5}}{2}\right)^n-\frac{1-\sqrt{5}}{2} \left(1+\frac{1-\sqrt{5}}{2} \right)^n\right)
+        \]
+        它还可以进一步化为和斐波那契相关的形式 
+        \[
+            a_n = \sum^{n}_{k=0} {{n} \choose {k}} \frac{1}{\sqrt{5}}\left(\left(1+\frac{1+\sqrt{5}}{2}\right)^n - \left(1+\frac{1-\sqrt{5}}{2} \right)^n\right) = \sum^{n}_{k=0} {{n} \choose {k}} F_k
+        \]
+\end{document}										%结束正文
