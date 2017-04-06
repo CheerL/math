@@ -1,0 +1,89 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+    \usepackage[table,xcdraw]{xcolor}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}							%中页脚
+        %\rfoot{林陈冉}	 						 		%右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{tikz}
+    \usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+    \title{离散数学第六章作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{补充1}\quad
+        $\lambda = r \frac{k - 1}{v - 1} = 5 * \frac{3}{7}$ 不是整数, 故不存在这样的BIBD 
+    \paragraph{补充2}\quad 
+        显然, 对于补设计 $\mathcal{B}^c$ , $b'=b$ , $v'=v$ , $k'=v-k$ . 再考虑 $r'$ , 若任意一对元素, 在原设计 $\mathcal{B}$ 的 $r$ 个区组中出现, 那么这对元素在剩下的 $b-r$ 个区组中不出现, 这等价于在补设计 $\mathcal{B}^c$ 的 $b-r$ 个区组中出现, 即 $r'=b-r$. 进一步可以验证参数间关系
+        \[
+            \begin{split}
+                b'k' = bv - bk &= bv - rv = v'r'\\
+                (k'-1)r' - \lambda'(v' - 1) &= bk - rv + (k-1)r - \lambda(v-1) = 0
+            \end{split}  
+        \]
+        故补设计是BIBD
+    \paragraph{补充3}\quad
+        \begin{table}[h]
+        \centering
+        \caption{$\{0,2,3,4,8\}\mod11$ 差分表}
+        \begin{tabular}{|
+        >{\columncolor[HTML]{C0C0C0}}l |l|l|l|l|l|}
+        \hline
+        {\color[HTML]{333333} -} & \cellcolor[HTML]{C0C0C0}0 & \cellcolor[HTML]{C0C0C0}2 & \cellcolor[HTML]{C0C0C0}3 & \cellcolor[HTML]{C0C0C0}4 & \cellcolor[HTML]{C0C0C0}8 \\ \hline
+        {\color[HTML]{333333} 0} & 0                         & 9                         & 8                         & 7                         & 3                         \\ \hline
+        {\color[HTML]{333333} 2} & 2                         & 0                         & 10                        & 9                         & 5                         \\ \hline
+        {\color[HTML]{333333} 3} & 3                         & 1                         & 0                         & 10                        & 6                         \\ \hline
+        {\color[HTML]{333333} 4} & 4                         & 2                         & 1                         & 0                         & 7                         \\ \hline
+        {\color[HTML]{333333} 8} & 8                         & 6                         & 5                         & 4                         & 0                         \\ \hline
+        \end{tabular}
+        \end{table}
+        
+        容易检验, 上表是 $\lambda = 2$ 的差分表, 其生成的SBIBD参数为 $v=b=11$, $k=r=5$, $\lambda = 2$ .
+    \paragraph{补充4}\quad 
+        3个样品的三元系是平凡的: $A = \{a_0, a_1, a_2\}$ . 再构造一个7个样品的Steniner三元系, 不妨直接用差分集构造一个SBIBD, 课件中已经作为例子给出:
+        $B_0 = \{b_0, b_1, b_3\}$ , $B_1 = \{b_1, b_2, b_4\}$ , $B_2 = \{b_2, b_3, b_5\}$ ,$ B_3 = \{b_3, b_4, b_6\}$ , $B_4 = \{b_4, b_5, b_0\}$ , $B_5 = \{b_5, b_6, b_1\}$, $B_6 = \{b_6, b_0, b_2\}$ .
+
+        将21个样本记为 $c_{ij}$ , $0 \le i \le 2$ ,  $0 \le j \le 6$ , 可以生成21个样本的三元系: 
+        $C_0 = \{c_{00}, c_{01}, c_{03}\}$ , $C_1 = \{c_{01}, c_{02}, c_{04}\}$ , $C_2 = \{c_{02}, c_{03}, c_{05}\}$ , $\cdots$ , $C_69 = \{c_{26}, c_{00}, c_{12}\}$ (70个区组).
+    \paragraph{补充5}\quad 
+        设 $\lambda=6n+a$ , 那么 $r = \lambda(v-1)/2 = 3n(v-1) + a(v-1)/2$ , $b = \lambda v(v-1)/6 = nv(v-1) + av(v-1)/6$ , 故 $a(v-1)/2$, 和 $av(v-1)/6$ 都应为整数
+        
+        (1) 当 $a=1$ 或 $a=5$ , 则 $(v-1)/2$ 必须为整数, 那么 $v$ 是奇数. 同时 $v(v-1)/6$ 是整数, 那么 $v=6m+3$ 或 $v=6m+1$;
+
+        (2) 当 $a=2$ 或 $a=4$ , 则 $a/2$ 是整数, 那么 $v$ 是任意数. 同时 $v(v-1)/3$ 是整数, 那么 $v=3m$ 或 $v=3m+1$;
+
+        (3) 当 $a=3$ , 则 $(v-1)/2$ 必须为整数, 那么 $v$ 是奇数. 而且此时 $av(v-1)/6$ 已经是整数了, 那么只要求 $v$ 是奇数.
+
+    \paragraph{7}\quad 
+        不存在SDR, 一共只有5个元素却有6个集合. 集合的最大个数是5, $A_2 \rightarrow d$ , $A_3 \rightarrow b$ , $A_4 \rightarrow c$ , $A_5 \rightarrow a$ , $A_6 \rightarrow e$ .
+    \paragraph{8}\quad 
+        有两个不同的SDR. 有 $n$ 个集合时表述为, $\mathbb{A} = \{A_1, \cdots, A_n\}$ , $A_i = \{i \mod n, i+1 \mod n\}$ , 集族 $\mathbb{A}$ 有两个不同的SDR.
+    \paragraph{15}\quad 
+        任取 $k$ 个集合, $\vert{A_{i_1} \cup \cdots \cup A_{i_k}}\vert \ge \vert{A_{i_1}}\vert = p \ge k$, 这说明了SDR的存在性
+    \paragraph{19}\quad 
+        认为 $A$ , $B$ , $C$ , $D$ 是女性, $a$ , $b$ , $c$ , $d$ 是男性. 延迟算法结果为: $A \leftrightarrow c$ , $B \leftrightarrow d$ , $C \leftrightarrow a$ , $D \leftrightarrow b$
+\end{document}										%结束正文
