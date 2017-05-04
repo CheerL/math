@@ -1,0 +1,110 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}							%中页脚
+        %\rfoot{林陈冉}	 						 		%右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{tikz}
+    \usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+    \title{离散数学第12次作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{1} 
+        (上次没交)\\
+        正五边形 $D = \{1,2,3,4,5\}$ 上的置换群 $D_5$ 为 
+        \begin{itemize}
+            \item 恒等变换 $e$ , 1个 $(5,0,0,0,0)$ 型.
+            \item 旋转, 记 $a = (12345)$ , 有 $a$ , $a^2$ , $a^3$ , $a^4$ 4个 $(0,0,0,0,1)$ 型.
+            \item 翻转, 记 $b = (25)(34)$ , 有 $b$ , $ab$ , $a^2b$ , $a^3b$ , $a^4b$ 5个 $(1,2,0,0,0)$ 型.
+        \end{itemize}
+        故 
+        \[
+            P_{D_5}(x_1, x_2, x_3, x_4, x_5) = \frac{1}{10} (x_1^5 + 5x_1x_2^2 + 4x_5)
+        \]
+        设红色为r, 蓝色为b, 白色为w, 则 
+        \[
+            \begin{split}
+              & P_{D_5}(r+b+w, r^2+b^2+w^2, r^3+b^3+w^3, r^4+b^4+w^4, r^5+b^5+w^5)\\
+            = & \frac{1}{10}\left(\left(r+b+w\right)^5 + 5\left(r+b+w\right)\left(r^2+b^2+w^2\right)^2 + 4\left(r^5+b^5+w^5\right)\right)\\
+            = & b^5+b^4 r+b^4 w+2 b^3 r^2+2 b^3 r w+2 b^3 w^2+2 b^2 r^3+4 b^2 r^2 w+4 b^2 r w^2+2 b^2 w^3+b r^4\\
+              & +2 b r^3 w+4 b r^2 w^2+2 b r w^3+b w^4+r^5+r^4 w+2 r^3 w^2+2 r^2 w^3+r w^4+w^5
+            \end{split}
+        \]
+        
+        其中 $r^2bw^2$ 的系数为4, 故有4中不等价的染色
+
+    \paragraph{7.2.7}\quad 
+        设 $a \in V_1 \cap V_2$ , $\forall u, v \in V'$ 
+        \begin{itemize}
+            \item 若 $u, v \in V_1$ , 由 $H_1$ 的连通性可知存在 $u-v$ 路径.
+            \item $u, v \in V_2$ 同理.
+            \item 若 $u \in V_1$ , $v \in V_2$ , 由 $H_1$ , $H_2$ 的连通性, 存在 $u-a$ 路径和 $v-a$ 路径, 故存在 $u-v$ 路径.
+            \item $u \in V_2$ , $v \in V_1$ 同理.
+        \end{itemize}
+        综上, $H$ 是连通的.
+    \paragraph{7.2.11}\quad
+         对任何简单图 $G = (V, E)$ , 当 $\vert{G}\vert = 3$ , 命题显然成立.
+         
+         假设当 $\vert{G}\vert = n$ 时命题成立, 当 $\vert{G}\vert = n + 1$ , $\forall u \in V$ , $\rho(u) \le n$ , 则 $G \setminus u$ 的边数大于 ${n-1 \choose 2}$ , 故 $G \setminus u$ 是连通的. 若 $\rho(u) = 0$ , $G$ 的边数等于 $G \setminus u$ 的边数, 不大于 ${n \choose 2}$ , 和条件矛盾, 故存在边连接 $u$ 和 $G \setminus u$ , 则 $G$ 连通.
+    \paragraph{7.3.4}\quad 
+        \\
+        \\
+        \\
+        \\
+        \\
+        \\
+        \\
+        \\
+        \\
+        \\
+    \paragraph{7.3.5}\quad 
+        \begin{itemize}
+            \item[(a)] 不存在, 一共7个点, 其中有一个点的degree是6, 说明和所有点连接, 这与存在degree为0的点矛盾.
+            \item[(b)] 不存在, degree之和为奇数.
+        \end{itemize}
+    \paragraph{补充1}\quad 
+        假设 $u_1-v_1$ , $u_2-v_2$ 是连通图 $G$ 中的两条最长路径, $u_1 \neq u_2 \neq v_1 \neq v_2$ , 由连通性可知, 存在路径 $v_1-u_2$ , 则路径 $u_1-v_1-u_2-v_2$ 比最长路径更长, 矛盾.
+    \paragraph{补充2}\quad 
+        \\
+        \\
+        \\
+        \\
+        \\
+        \\
+        \\
+        \\
+        \\
+        \\
+    \paragraph{补充3}
+        \begin{itemize}
+            \item[(1)] $e$ 是割边, 但 $a$ , $b$ 不是割点
+            \item[(2)] 
+            补充条件: 割边两端点 $a$ , $b$ 至少有一个degree大于1.\\
+            证明: 记图 $G$ 割边为 $e$ , 两个端点为 $a$ , $b$ . 因为 $e$ 是割边, 则 $G \setminus e$ 有两个连通子图 $G_a$ , $G_b$ , $a \in G_a$ , $b \in G_b$ . 因为 $\rho(a)$ , $\rho(b)$ 至少有一个大于1, 不妨设 $\rho(a) > 1$ , 则 $\vert{G_a}\vert > 1$ , $G_a \setminus a$ 非空 . $\forall u \in G_a \setminus a$ , $u-b$ 路径必定包含 $a$ , 这说明了 $a$ 是割点 命题得证.
+        \end{itemize}
+\end{document}										%结束正文
