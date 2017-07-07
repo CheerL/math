@@ -1,0 +1,103 @@
+\documentclass[a4paper, UTF8]{ctexart}				%中文环境
+%\documentclass{article}							%英文环境
+
+%---------------------------宏包加载----------------------------
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsthm}
+    \usepackage{geometry}
+        \geometry{left = 2.54cm, right = 2.54cm,
+            top = 3.18cm, bottom = 3.18cm}			%页边距设置
+    \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        %\lfoot{\today}   							%左页脚
+        \cfoot{\thepage}							%中页脚
+        %\rfoot{林陈冉}	 						 		%右页脚
+        \setlength{\parskip}{0.5 \baselineskip}		%段距
+    \usepackage{hyperref}  							%打开超链接
+        \hypersetup{colorlinks=false}				%取消超链接颜色
+    \usepackage{tikz}
+    \usepackage{multirow}
+
+%---------------------------标题设置----------------------------
+    \title{离散数学第13次作业}
+    \author{林陈冉}
+    \date{\today}
+
+%---------------------------定理环境----------------------------
+    \newtheorem{theo}{\bf 定理}[section]			  %新建定理环境, 标题为"定理", 以section为计数器标记
+    \newtheorem{define}{\bf 定义}[section]
+    \newtheorem{algo}{\bf 算法}
+    \renewcommand{\proofname}{\bf 证明}			  %重命名定理环境, 标题为"证明"
+    \numberwithin{equation}{section}				%以section为计数器标记公式
+
+%-----------------------------正文------------------------------
+\begin{document}									%开始正文
+    \maketitle										%生成标题
+    \paragraph{1}\quad 
+        $v$ 是割点, 设 $G - v$ 有 $k$ 个连通分支 $G_1, \cdots , G_k$ .
+        $\forall u, w \in G - v$ , $u, w \in \bar{G} - v$ , 不失一般性, 认为 $u \in G_1$.
+        
+        若 $w \notin G_1$ , $G - v$ 不存在 $u-w$ 路径, 那么在 $\bar{G} - v$ 中存在 $u-w$ 路径.
+
+        若 $w \in G_1$ , $u' \ne u$ , 可以取任意一个 $x \notin G_1$ ,
+        $\bar{G} - v$ 中存在 $u-x$ 路径和 $w-x$ 路径, 则存在 $u-w$ 路径.
+
+        于是 $\forall u, w \in \bar{G} - v$ , 存在 $u-w$ 路径, 故 $\bar{G} - v$ 连通.
+    \paragraph{2}\quad 
+        $F_1, \cdots, F_k$ 是 $G$ 的所有最小点割集,
+        $\vert{F_1}\vert = \cdots = \vert{F_k}\vert = \kappa(G) = h$ ,
+        
+    \paragraph{3}\quad 
+        $G$ 是 $k$ 边连通的, 则 $\forall u \in G$ , $d(u) \geq k$ ,
+        否则去掉这个点相连的 $d(u) < k$ 条边, $G$ 即变成不连通的图, 于 $\lambda(G) = k$ 矛盾.
+        故所有点的度和 $$\sum_{u \in V} d(u) \geq k \vert{V}\vert$$
+        又由握手定理可知 $$\vert{E}\vert = \sum_{u \in V} d(u) / 2 \geq k \vert{V}\vert / 2$$
+    \paragraph{4}\quad 
+        定义一个圈为极小圈, 若它不是单点, 且它的任何非单点的真子图都不是圈. 这里认为单点是圈. 
+        将 $G$ 看作极小圈和 $K_2$ 的组合, 由题可知, 所有这些圈都是奇圈.
+
+        任意两个极小圈 $A , B$ , 若它们有公共边, 那么 $G$ 中含有偶圈, 来说明这一点.
+        \begin{itemize}
+            \item 若 $A, B$ 的所有公共边相邻接, 公共边形成的最长路径有 $k$ 个点, $k \geq 2$ .
+            从某一段开始, 其上的点依次记作 $u_1, \cdots, u_k$.
+            则 $A, B$ 中不在 $u_1-u_k$ 路径上的点是 $\vert{A}\vert -k , \vert{B}\vert-k $ 个, 这些点和 $u_1, u_k$ 一起组成一个圈, 有 $\vert{A}\vert + \vert{B}\vert - 2k + 2$ 个点, 形成偶圈
+            \item 若 $A, B$ 的公共边不邻接, 那么 $A, B$ 间还夹着其他的极小圈 $C$ , 返回考虑 $A, C$ .
+        \end{itemize} 
+
+        从上面可以知道, 极小圈之间不存在公共边, 那么任意两个极小圈, 它们或相分离, 或有一个公共点. 故 $G$ 的块只有奇圈和 $K_2$.
+    \paragraph{5}\quad 
+        若 $G$ 不是块, 那么考虑它的一条割边 $e$ , 其端点记作 $u , v$ .
+        $G - e$ 含有两个连通分支 $U, V$ , 不妨设 $u \in U$ , $v \in V$ ,
+        由连通性, 显然 $u, v$ 不可能同时出现在 $U, V$ 中.
+        $U$ 中至少存在一个含有 $u$ 的块 $U'$, 同理 $V$ 中也至少存在一个含有 $v$ 的块 $V'$, 命题得证.
+    \paragraph{6}\quad 
+        记第 $i$ 笔画出的路径为 $G_i$ , 显然 $G_i$ 是欧拉路径, 至多有两个奇度点.
+        对于任意一个点 $u \in G$
+        $$d_G(u) = \sum_{i = 1}^k d_{G_i}(u)$$
+
+        若 $d_G(u)$ 是奇数, 则有奇数个 $d_{G_i}(u)$ 是奇数, 故 $G$ 中的奇度点个数小于所有 $G_i$ 中奇度点个数之和 $2k$ , 命题得证.
+    \paragraph{7}\quad 
+        不存在. $G$ 是欧拉图, $\forall u \in G$ , $d(u)$ 是偶数, 又 $\vert{G}\vert$ 是偶数, 故 $\sum_{u \in G}^k d(u)$ 被4整除, 由握手定理, 边数是偶数.
+    \paragraph{8}\quad
+        \begin{itemize}
+            \item 充分性: $G_1, \cdots, G_n$ 是圈 , $G$ 是它们的无交并 . 在任何一个圈中, 任意一点的度都是2, 设 
+            $$\delta_i(u) = 
+            \begin{cases}
+                1, &\text{ if }u \in G_i\\
+                0, &\text{ if }u \notin G_i
+            \end{cases} , \quad \forall u \in G$$ 
+            那么 $\forall u \in G$
+            $$d_G(u) = \sum_{i = 1}^k d_{G_i}(u) = 2 \sum_{i = 1}^k \delta_i(u)$$
+            即 $G$ 的每个点都是偶度点, $G$ 是欧拉图.
+
+            \item 必要性: $G$ 是欧拉图, 从 $G_0 = G$ 中任取一个圈 $C_1$ , 考虑 $G_1 = G_0 - C_1$ , $\forall u \in G_1$
+            $$d_{G_1}(u) = 
+            \begin{cases}
+                d_{G_0} (u) - 2, &\text{ if }u \in C_0\\
+                d_{G_0} (u), &\text{ if }u \notin C_0
+            \end{cases}$$
+
+            那么 $d_{G_1}(u)$ 是偶数, 即 $G_1$ 还是欧拉图. 继续进行上述操作, 直至 $G_n$ 是空图, 得到 $C_2, \cdots, C_n$, 显然 $C_1, C_2, \cdots, C_n$ 是无公共边的, 这给出了 $G$ 的一个分解.
+        \end{itemize}
+\end{document}										%结束正文
